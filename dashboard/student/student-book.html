@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Lesson | RouteWise</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%2314181F%22/><circle cx=%2212%22 cy=%2212%22 r=%224%22 fill=%22%23FFC53D%22/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+<style>
+@keyframes fade-in { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+@keyframes slide-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+.animate-slide-in { animation: slide-in 0.25s ease-out; }
+</style>
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="Book a Lesson">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+
+      <!-- Page Header -->
+      <div class="mb-8">
+        <h1 class="font-display text-2xl md:text-3xl font-bold text-ink">Book a Lesson</h1>
+        <p class="text-ink/60 mt-1">Choose your preferred date, time, and instructor.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Booking Form -->
+        <div class="lg:col-span-2">
+          <form id="bookingForm" class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6 md:p-8" novalidate>
+            <h2 class="font-display text-lg font-bold text-ink mb-6">Lesson Details</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+              <!-- Date -->
+              <div class="sm:col-span-2">
+                <label for="bookDate" class="block text-sm font-medium text-ink/70 mb-1.5">Date <span class="text-clay">*</span></label>
+                <input type="date" id="bookDate" required
+                  class="w-full px-4 py-3 rounded-xl border border-ink/10 dark:border-paper/10 bg-paper dark:bg-ink focus:outline-none focus:ring-2 focus:ring-route/30 focus:border-route transition-all text-sm font-body text-ink dark:text-paper">
+                <p id="dateError" class="text-clay text-xs mt-1.5 hidden">Please select a date for your lesson.</p>
+              </div>
+
+              <!-- Time -->
+              <div>
+                <label for="bookTime" class="block text-sm font-medium text-ink/70 mb-1.5">Time</label>
+                <select id="bookTime"
+                  class="w-full px-4 py-3 rounded-xl border border-ink/10 dark:border-paper/10 bg-paper dark:bg-ink focus:outline-none focus:ring-2 focus:ring-route/30 focus:border-route transition-all text-sm font-body text-ink dark:text-paper appearance-none cursor-pointer"
+                  style="background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 1.25em 1.25em;">
+                  <option value="9:00 AM">9:00 AM</option>
+                  <option value="11:00 AM">11:00 AM</option>
+                  <option value="2:00 PM">2:00 PM</option>
+                  <option value="4:00 PM" selected>4:00 PM</option>
+                  <option value="6:00 PM">6:00 PM</option>
+                </select>
+              </div>
+
+              <!-- Instructor -->
+              <div>
+                <label for="bookInstructor" class="block text-sm font-medium text-ink/70 mb-1.5">Instructor</label>
+                <select id="bookInstructor"
+                  class="w-full px-4 py-3 rounded-xl border border-ink/10 dark:border-paper/10 bg-paper dark:bg-ink focus:outline-none focus:ring-2 focus:ring-route/30 focus:border-route transition-all text-sm font-body text-ink dark:text-paper appearance-none cursor-pointer"
+                  style="background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 1.25em 1.25em;">
+                  <option value="any">Any Available</option>
+                  <option value="David Alvarez">David Alvarez</option>
+                  <option value="Lena Ortiz">Lena Ortiz</option>
+                </select>
+              </div>
+
+              <!-- Vehicle -->
+              <div>
+                <label for="bookVehicle" class="block text-sm font-medium text-ink/70 mb-1.5">Vehicle</label>
+                <select id="bookVehicle"
+                  class="w-full px-4 py-3 rounded-xl border border-ink/10 dark:border-paper/10 bg-paper dark:bg-ink focus:outline-none focus:ring-2 focus:ring-route/30 focus:border-route transition-all text-sm font-body text-ink dark:text-paper appearance-none cursor-pointer"
+                  style="background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 1.25em 1.25em;">
+                  <option value="Sedan (Toyota)">Sedan (Toyota)</option>
+                  <option value="SUV (Honda)">SUV (Honda)</option>
+                </select>
+              </div>
+
+              <!-- Lesson Type -->
+              <div>
+                <label for="bookType" class="block text-sm font-medium text-ink/70 mb-1.5">Lesson Type</label>
+                <select id="bookType"
+                  class="w-full px-4 py-3 rounded-xl border border-ink/10 dark:border-paper/10 bg-paper dark:bg-ink focus:outline-none focus:ring-2 focus:ring-route/30 focus:border-route transition-all text-sm font-body text-ink dark:text-paper appearance-none cursor-pointer"
+                  style="background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 1.25em 1.25em;">
+                  <option value="Standard (1hr)">Standard (1hr)</option>
+                  <option value="Extended (1.5hr)">Extended (1.5hr)</option>
+                  <option value="Intensive (2hr)">Intensive (2hr)</option>
+                </select>
+              </div>
+
+              <!-- Special Requests -->
+              <div class="sm:col-span-2">
+                <label for="bookNotes" class="block text-sm font-medium text-ink/70 mb-1.5">Special Requests <span class="text-ink/40">(optional)</span></label>
+                <textarea id="bookNotes" rows="3" placeholder="e.g. Focus on highway merging, need extra parking practice..."
+                  class="w-full px-4 py-3 rounded-xl border border-ink/10 dark:border-paper/10 bg-paper dark:bg-ink focus:outline-none focus:ring-2 focus:ring-route/30 focus:border-route transition-all text-sm font-body text-ink dark:text-paper placeholder:text-ink/30 resize-none"></textarea>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="mt-6 flex items-center gap-3">
+              <button type="submit" id="submitBtn"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-route text-white font-display font-bold text-sm rounded-xl hover:bg-route/90 active:scale-[0.98] transition-all shadow-lg shadow-route/20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Confirm Booking
+              </button>
+              <button type="reset"
+                class="px-4 py-3 text-sm font-medium text-ink/40 hover:text-ink/60 transition-colors">
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="space-y-6">
+
+          <!-- Available Time Slots -->
+          <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6">
+            <h3 class="font-display font-bold text-ink mb-4">Today's Slots</h3>
+            <div class="space-y-2">
+              <div class="flex items-center justify-between p-3 rounded-xl bg-route/5 border border-route/10">
+                <span class="text-sm font-medium text-ink">9:00 AM</span>
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-route/10 text-route">
+                  <span class="w-1.5 h-1.5 rounded-full bg-route"></span> Available
+                </span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-xl bg-route/5 border border-route/10">
+                <span class="text-sm font-medium text-ink">11:00 AM</span>
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-route/10 text-route">
+                  <span class="w-1.5 h-1.5 rounded-full bg-route"></span> Available
+                </span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-xl bg-signal/5 border border-signal/10">
+                <span class="text-sm font-medium text-ink">2:00 PM</span>
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-signal/10 text-signal">
+                  <span class="w-1.5 h-1.5 rounded-full bg-signal"></span> Limited
+                </span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-xl bg-route/5 border border-route/10">
+                <span class="text-sm font-medium text-ink">4:00 PM</span>
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-route/10 text-route">
+                  <span class="w-1.5 h-1.5 rounded-full bg-route"></span> Available
+                </span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-xl bg-clay/5 border border-clay/10">
+                <span class="text-sm font-medium text-ink">6:00 PM</span>
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-clay/10 text-clay">
+                  <span class="w-1.5 h-1.5 rounded-full bg-clay"></span> Full
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Bookings -->
+          <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6">
+            <h3 class="font-display font-bold text-ink mb-4">Upcoming Lessons</h3>
+            <div id="upcomingList" class="space-y-3">
+              <!-- Existing mock entries -->
+              <div class="p-4 rounded-xl bg-ink/[0.02] dark:bg-paper/[0.03] border border-ink/5">
+                <div class="flex items-start justify-between mb-1">
+                  <span class="text-sm font-bold text-ink">Fri, Aug 22</span>
+                  <span class="text-[11px] font-mono text-ink/40">4:00 PM</span>
+                </div>
+                <p class="text-xs text-ink/50">David Alvarez · Sedan (Toyota)</p>
+                <p class="text-xs text-ink/40 mt-1">Standard (1hr) · Night Driving</p>
+              </div>
+              <div class="p-4 rounded-xl bg-ink/[0.02] dark:bg-paper/[0.03] border border-ink/5">
+                <div class="flex items-start justify-between mb-1">
+                  <span class="text-sm font-bold text-ink">Mon, Aug 25</span>
+                  <span class="text-[11px] font-mono text-ink/40">11:00 AM</span>
+                </div>
+                <p class="text-xs text-ink/50">Lena Ortiz · SUV (Honda)</p>
+                <p class="text-xs text-ink/40 mt-1">Extended (1.5hr) · Roundabouts</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Booking Confirmation Modal -->
+<div id="bookingModal" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-ink/40 dark:bg-paper/20 backdrop-blur-sm" id="modalOverlay"></div>
+  <div class="absolute inset-0 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/10 dark:border-paper/10 shadow-2xl w-full max-w-md p-8 relative animate-fade-in">
+      <!-- Success Icon -->
+      <div class="w-16 h-16 rounded-full bg-route/10 flex items-center justify-center mx-auto mb-5">
+        <svg class="w-8 h-8 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h2 class="font-display text-xl font-bold text-ink text-center mb-2">Lesson Booked!</h2>
+      <p class="text-sm text-ink/50 text-center mb-6">Your driving lesson has been confirmed.</p>
+
+      <!-- Summary -->
+      <div id="modalSummary" class="rounded-xl bg-ink/[0.03] dark:bg-paper/[0.03] border border-ink/5 p-4 space-y-2 mb-6"></div>
+
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="student-lessons.html"
+          class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-route text-white font-display font-bold text-sm rounded-xl hover:bg-route/90 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+          View My Lessons
+        </a>
+        <button id="bookAnotherBtn"
+          class="flex-1 px-4 py-3 border border-ink/10 dark:border-paper/10 text-ink/60 dark:text-paper/60 font-display font-bold text-sm rounded-xl hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03] transition-all">
+          Book Another
+        </button>
+      </div>
+
+      <!-- Close -->
+      <button id="closeModalBtn" class="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center text-ink/30 hover:text-ink/60 hover:bg-ink/5 transition-all">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Toast -->
+<div id="toast" class="fixed top-6 right-6 z-[60] hidden">
+  <div class="flex items-center gap-3 px-5 py-3 bg-route text-white rounded-xl shadow-lg shadow-route/20 animate-slide-in">
+    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+    <span id="toastMsg" class="text-sm font-medium"></span>
+  </div>
+</div>
+
+<script>
+(function() {
+  const form = document.getElementById('bookingForm');
+  const dateInput = document.getElementById('bookDate');
+  const dateError = document.getElementById('dateError');
+  const modal = document.getElementById('bookingModal');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalSummary = document.getElementById('modalSummary');
+  const closeBtn = document.getElementById('closeModalBtn');
+  const bookAnotherBtn = document.getElementById('bookAnotherBtn');
+  const upcomingList = document.getElementById('upcomingList');
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+
+  // Set min date to today
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.setAttribute('min', today);
+
+  function showToast(message) {
+    toastMsg.textContent = message;
+    toast.classList.remove('hidden');
+    setTimeout(() => { toast.classList.add('hidden'); }, 3500);
+  }
+
+  function addUpcomingEntry(data) {
+    const date = new Date(data.date);
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dateStr = dayNames[date.getDay()] + ', ' + monthNames[date.getMonth()] + ' ' + date.getDate();
+
+    const div = document.createElement('div');
+    div.className = 'p-4 rounded-xl bg-route/5 border border-route/10 animate-slide-in';
+    div.innerHTML = '<div class="flex items-start justify-between mb-1">' +
+      '<span class="text-sm font-bold text-ink">' + dateStr + '</span>' +
+      '<span class="text-[11px] font-mono text-ink/40">' + data.time + '</span></div>' +
+      '<p class="text-xs text-ink/50">' + data.instructor + ' · ' + data.vehicle + '</p>' +
+      '<p class="text-xs text-route mt-1">' + data.type + '</p>';
+    upcomingList.prepend(div);
+  }
+
+  function openModal(data) {
+    const date = new Date(data.date);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = date.toLocaleDateString('en-US', options);
+
+    modalSummary.innerHTML =
+      '<div class="flex justify-between items-center"><span class="text-xs text-ink/40 uppercase tracking-wider">Date</span><span class="text-sm font-medium text-ink">' + dateStr + '</span></div>' +
+      '<div class="flex justify-between items-center"><span class="text-xs text-ink/40 uppercase tracking-wider">Time</span><span class="text-sm font-medium text-ink">' + data.time + '</span></div>' +
+      '<div class="flex justify-between items-center"><span class="text-xs text-ink/40 uppercase tracking-wider">Instructor</span><span class="text-sm font-medium text-ink">' + data.instructor + '</span></div>' +
+      '<div class="flex justify-between items-center"><span class="text-xs text-ink/40 uppercase tracking-wider">Vehicle</span><span class="text-sm font-medium text-ink">' + data.vehicle + '</span></div>' +
+      '<div class="flex justify-between items-center"><span class="text-xs text-ink/40 uppercase tracking-wider">Type</span><span class="text-sm font-medium text-ink">' + data.type + '</span></div>';
+    if (data.notes) {
+      modalSummary.innerHTML += '<div class="pt-2 border-t border-ink/5"><span class="text-xs text-ink/40 uppercase tracking-wider block mb-1">Notes</span><p class="text-sm text-ink/60">' + data.notes + '</p></div>';
+    }
+
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    // Validate date
+    if (!dateInput.value) {
+      dateError.classList.remove('hidden');
+      dateInput.classList.add('ring-2', 'ring-clay/30', 'border-clay');
+      dateInput.focus();
+      return;
+    } else {
+      dateError.classList.add('hidden');
+      dateInput.classList.remove('ring-2', 'ring-clay/30', 'border-clay');
+    }
+
+    const data = {
+      date: dateInput.value,
+      time: document.getElementById('bookTime').value,
+      instructor: document.getElementById('bookInstructor').value === 'any' ? 'Any Available' : document.getElementById('bookInstructor').value,
+      vehicle: document.getElementById('bookVehicle').value,
+      type: document.getElementById('bookType').value,
+      notes: document.getElementById('bookNotes').value
+    };
+
+    // Disable button briefly
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg> Booking...';
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Confirm Booking';
+      openModal(data);
+      addUpcomingEntry(data);
+      form.reset();
+      dateInput.setAttribute('min', today);
+    }, 800);
+  }
+
+  form.addEventListener('submit', handleSubmit);
+
+  dateInput.addEventListener('change', function() {
+    if (this.value) {
+      dateError.classList.add('hidden');
+      this.classList.remove('ring-2', 'ring-clay/30', 'border-clay');
+    }
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', closeModal);
+  bookAnotherBtn.addEventListener('click', function() {
+    closeModal();
+    document.getElementById('bookDate').focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+  });
+})();
+</script>
+<script src="../shared/sidebar-student.js"></script>
+</body>
+</html>

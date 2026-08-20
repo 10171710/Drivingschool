@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overview | RouteWise</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%2314181F%22/><circle cx=%2212%22 cy=%2212%22 r=%224%22 fill=%22%23FFC53D%22/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="Overview">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+
+      <!-- Welcome -->
+      <div class="mb-8">
+        <h1 class="font-display text-2xl md:text-3xl font-bold text-ink">Welcome back, Alex</h1>
+        <p class="text-ink/60 mt-1">Here's what's happening with your driving lessons.</p>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+        <!-- Hours Done -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-5 relative overflow-hidden group hover:shadow-lg transition-shadow">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-route/10 rounded-bl-[3rem] transition-transform group-hover:scale-110"></div>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-route/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="text-sm font-medium text-ink/50">Hours Done</span>
+          </div>
+          <div class="font-display text-3xl font-bold text-ink">18<span class="text-lg font-normal text-ink/40"> / 30</span></div>
+          <div class="mt-3 w-full h-2 bg-ink/5 rounded-full overflow-hidden">
+            <div class="h-full bg-route rounded-full transition-all duration-700" style="width: 60%"></div>
+          </div>
+        </div>
+
+        <!-- Lessons Done -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-5 relative overflow-hidden group hover:shadow-lg transition-shadow">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-signal/10 rounded-bl-[3rem] transition-transform group-hover:scale-110"></div>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-signal/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-signal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="text-sm font-medium text-ink/50">Lessons Done</span>
+          </div>
+          <div class="font-display text-3xl font-bold text-ink">14</div>
+          <p class="text-xs text-ink/40 mt-2">+2 this week</p>
+        </div>
+
+        <!-- Next Lesson -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-5 relative overflow-hidden group hover:shadow-lg transition-shadow">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-clay/10 rounded-bl-[3rem] transition-transform group-hover:scale-110"></div>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-clay/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-clay" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <span class="text-sm font-medium text-ink/50">Next Lesson</span>
+          </div>
+          <div class="font-display text-xl font-bold text-ink">Fri 4:00 PM</div>
+          <p class="text-xs text-ink/40 mt-2">With David Alvarez</p>
+        </div>
+
+        <!-- Test Readiness -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-5 relative overflow-hidden group hover:shadow-lg transition-shadow">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-route/10 rounded-bl-[3rem] transition-transform group-hover:scale-110"></div>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-route/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <span class="text-sm font-medium text-ink/50">Test Readiness</span>
+          </div>
+          <div class="font-display text-3xl font-bold text-ink">82%</div>
+          <p class="text-xs text-route mt-2 font-medium">+5% from last week</p>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6 mb-8">
+        <h2 class="font-display text-lg font-bold text-ink mb-4">Quick Actions</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <a href="student-book.html" class="group flex items-center gap-3 p-4 rounded-xl bg-route/5 border border-route/10 hover:bg-route hover:text-white hover:border-route transition-all duration-200">
+            <div class="w-10 h-10 rounded-xl bg-route/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
+              <svg class="w-5 h-5 text-route group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <div>
+              <span class="font-display font-bold text-sm">Book a Lesson</span>
+              <p class="text-xs text-ink/40 group-hover:text-white/60 transition-colors">Schedule next session</p>
+            </div>
+          </a>
+          <a href="student-mocktest.html" class="group flex items-center gap-3 p-4 rounded-xl bg-signal/5 border border-signal/10 hover:bg-signal hover:text-white hover:border-signal transition-all duration-200">
+            <div class="w-10 h-10 rounded-xl bg-signal/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
+              <svg class="w-5 h-5 text-signal group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            </div>
+            <div>
+              <span class="font-display font-bold text-sm">Take Mock Test</span>
+              <p class="text-xs text-ink/40 group-hover:text-white/60 transition-colors">Practice exam</p>
+            </div>
+          </a>
+          <a href="student-progress.html" class="group flex items-center gap-3 p-4 rounded-xl bg-clay/5 border border-clay/10 hover:bg-clay hover:text-white hover:border-clay transition-all duration-200">
+            <div class="w-10 h-10 rounded-xl bg-clay/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
+              <svg class="w-5 h-5 text-clay group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <div>
+              <span class="font-display font-bold text-sm">View Progress</span>
+              <p class="text-xs text-ink/40 group-hover:text-white/60 transition-colors">License tracker</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- Recent Lessons -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6">
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="font-display text-lg font-bold text-ink">Recent Lessons</h2>
+            <a href="#" class="text-sm text-route hover:text-route/80 font-medium transition-colors">View all</a>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-ink/5">
+                  <th class="text-left py-3 px-2 text-xs font-medium text-ink/40 uppercase tracking-wider">Date</th>
+                  <th class="text-left py-3 px-2 text-xs font-medium text-ink/40 uppercase tracking-wider">Instructor</th>
+                  <th class="text-left py-3 px-2 text-xs font-medium text-ink/40 uppercase tracking-wider">Focus</th>
+                  <th class="text-right py-3 px-2 text-xs font-medium text-ink/40 uppercase tracking-wider">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-ink/5">
+                <tr class="group hover:bg-ink/[0.02] transition-colors">
+                  <td class="py-3 px-2 font-mono text-xs text-ink/60">Aug 18, 2025</td>
+                  <td class="py-3 px-2">
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded-full bg-route/10 flex items-center justify-center text-[10px] font-bold text-route">DA</div>
+                      <span class="font-medium text-ink">David Alvarez</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-2 text-ink/60">Highway Driving</td>
+                  <td class="py-3 px-2 text-right"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-route/10 text-route">Done</span></td>
+                </tr>
+                <tr class="group hover:bg-ink/[0.02] transition-colors">
+                  <td class="py-3 px-2 font-mono text-xs text-ink/60">Aug 15, 2025</td>
+                  <td class="py-3 px-2">
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded-full bg-signal/10 flex items-center justify-center text-[10px] font-bold text-signal">LO</div>
+                      <span class="font-medium text-ink">Lena Ortiz</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-2 text-ink/60">Parking Maneuvers</td>
+                  <td class="py-3 px-2 text-right"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-route/10 text-route">Done</span></td>
+                </tr>
+                <tr class="group hover:bg-ink/[0.02] transition-colors">
+                  <td class="py-3 px-2 font-mono text-xs text-ink/60">Aug 22, 2025</td>
+                  <td class="py-3 px-2">
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded-full bg-route/10 flex items-center justify-center text-[10px] font-bold text-route">DA</div>
+                      <span class="font-medium text-ink">David Alvarez</span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-2 text-ink/60">Night Driving</td>
+                  <td class="py-3 px-2 text-right"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-signal/10 text-signal">Upcoming</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Instructor Notes Preview -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6">
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="font-display text-lg font-bold text-ink">Instructor Notes</h2>
+            <a href="#" class="text-sm text-route hover:text-route/80 font-medium transition-colors">View all</a>
+          </div>
+          <div class="space-y-4">
+            <!-- Note 1 -->
+            <div class="p-4 rounded-xl bg-ink/[0.02] dark:bg-paper/[0.03] border border-ink/5">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-route/10 flex items-center justify-center text-[10px] font-bold text-route">DA</div>
+                  <span class="font-display font-bold text-sm text-ink">David Alvarez</span>
+                </div>
+                <span class="font-mono text-[11px] text-ink/40">Aug 18, 2025</span>
+              </div>
+              <p class="text-sm text-ink/60 leading-relaxed">Good progress on highway merging. Alex showed confidence with lane changes at high speed. Needs more practice with roundabout exits and parallel parking precision.</p>
+            </div>
+            <!-- Note 2 -->
+            <div class="p-4 rounded-xl bg-ink/[0.02] dark:bg-paper/[0.03] border border-ink/5">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-signal/10 flex items-center justify-center text-[10px] font-bold text-signal">LO</div>
+                  <span class="font-display font-bold text-sm text-ink">Lena Ortiz</span>
+                </div>
+                <span class="font-mono text-[11px] text-ink/40">Aug 15, 2025</span>
+              </div>
+              <p class="text-sm text-ink/60 leading-relaxed">Excellent reverse parking today. Alex quickly grasped the 3-point turn technique. Recommend focusing on blind spot awareness and mirror adjustments before the mock test.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../shared/sidebar-student.js"></script>
+</body>
+</html>

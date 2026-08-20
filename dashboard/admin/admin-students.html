@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Students | RouteWise Admin</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e8a43a'/><path d='M30 55 Q50 25 70 55' fill='none' stroke='white' stroke-width='6' stroke-linecap='round'/><circle cx='50' cy='38' r='5' fill='white'/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="Students">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+
+      <!-- Top bar: search + filters + add button -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-5">
+        <!-- Search -->
+        <div class="relative flex-1 w-full sm:max-w-xs">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/30 dark:text-paper/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="studentSearch" placeholder="Search students..." class="dash-input pl-9">
+        </div>
+        <!-- Filters -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <select id="filterStatus" class="dash-input dash-select w-auto text-sm">
+            <option value="">All Status</option>
+            <option>Active</option>
+            <option>Completed</option>
+            <option>Inactive</option>
+          </select>
+          <select id="filterCourse" class="dash-input dash-select w-auto text-sm">
+            <option value="">All Courses</option>
+            <option>New Driver</option>
+            <option>Senior</option>
+            <option>Teen</option>
+          </select>
+          <select id="filterSort" class="dash-input dash-select w-auto text-sm">
+            <option value="name">Sort by Name</option>
+            <option value="date">Sort by Date</option>
+            <option value="course">Sort by Course</option>
+          </select>
+        </div>
+        <!-- Add button -->
+        <button onclick="openAddModal()" class="ml-auto flex items-center gap-2 px-4 py-2.5 rounded-xl bg-route text-white font-semibold text-sm hover:bg-route-600 transition-colors shrink-0">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Student
+        </button>
+      </div>
+
+      <!-- Students Table -->
+      <div class="neu-card p-5 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="dash-table" id="studentsTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Status</th>
+                <th>Enrolled</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Add / Edit Modal -->
+<div class="dash-modal-overlay" id="studentModal">
+  <div class="dash-modal">
+    <div class="dash-modal-header">
+      <h3 class="font-display font-bold text-lg" id="modalTitle">Add Student</h3>
+      <button onclick="closeStudentModal()" class="w-8 h-8 grid place-items-center rounded-full hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <form id="studentForm" onsubmit="return false;">
+      <input type="hidden" id="formIndex" value="-1">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="dash-label">First Name</label>
+          <input type="text" id="formFirst" class="dash-input" required>
+        </div>
+        <div>
+          <label class="dash-label">Last Name</label>
+          <input type="text" id="formLast" class="dash-input" required>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="dash-label">Email</label>
+          <input type="email" id="formEmail" class="dash-input" required>
+        </div>
+        <div>
+          <label class="dash-label">Phone</label>
+          <input type="tel" id="formPhone" class="dash-input">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="dash-label">Course</label>
+          <select id="formCourse" class="dash-input dash-select" required>
+            <option value="New Driver Certification">New Driver Certification</option>
+            <option value="Senior Refresher">Senior Refresher</option>
+            <option value="Teen Program">Teen Program</option>
+          </select>
+        </div>
+        <div>
+          <label class="dash-label">Status</label>
+          <select id="formStatus" class="dash-input dash-select" required>
+            <option value="Active">Active</option>
+            <option value="Completed">Completed</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-5">
+        <label class="dash-label">Notes</label>
+        <textarea id="formNotes" class="dash-input" rows="3" placeholder="Optional notes..."></textarea>
+      </div>
+      <div class="flex items-center justify-end gap-3">
+        <button type="button" onclick="closeStudentModal()" class="px-5 py-2.5 rounded-xl text-sm font-semibold border border-ink/15 dark:border-paper/20 hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors">Cancel</button>
+        <button type="submit" onclick="saveStudent()" class="px-5 py-2.5 rounded-xl bg-route text-white text-sm font-semibold hover:bg-route-600 transition-colors">Save Student</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="dash-modal-overlay" id="deleteModal">
+  <div class="dash-modal max-w-sm">
+    <div class="dash-modal-header">
+      <h3 class="font-display font-bold text-lg">Delete Student</h3>
+      <button onclick="closeDeleteModal()" class="w-8 h-8 grid place-items-center rounded-full hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <p class="text-sm text-ink/60 dark:text-paper/60 mb-6" id="deleteMessage">Are you sure you want to delete this student?</p>
+    <div class="flex items-center justify-end gap-3">
+      <button onclick="closeDeleteModal()" class="px-5 py-2.5 rounded-xl text-sm font-semibold border border-ink/15 dark:border-paper/20 hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors">Cancel</button>
+      <button onclick="confirmDelete()" class="px-5 py-2.5 rounded-xl bg-clay text-white text-sm font-semibold hover:opacity-90 transition-opacity">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Toast -->
+<div class="dash-popup success" id="successToast">
+  <div class="popup-icon">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  </div>
+  <span id="toastMessage">Student added successfully</span>
+</div>
+
+<script src="../shared/sidebar-admin.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var students = [
+    { first: 'Sarah',   last: 'Johnson',   email: 'sarah.j@example.com',   phone: '555-0101', course: 'New Driver Certification', status: 'Active',    enrolled: 'Aug 12, 2026', notes: '' },
+    { first: 'Michael', last: 'Chen',       email: 'm.chen@example.com',    phone: '555-0102', course: 'Senior Refresher',         status: 'Active',    enrolled: 'Aug 8, 2026',  notes: '' },
+    { first: 'Emma',    last: 'Rodriguez',  email: 'emma.r@example.com',    phone: '555-0103', course: 'Teen Program',             status: 'Active',    enrolled: 'Aug 5, 2026',  notes: '' },
+    { first: 'James',   last: 'Wilson',     email: 'j.wilson@example.com',  phone: '555-0104', course: 'New Driver Certification', status: 'Completed', enrolled: 'Jul 28, 2026', notes: '' },
+    { first: 'Aisha',   last: 'Patel',      email: 'aisha.p@example.com',   phone: '555-0105', course: 'Senior Refresher',         status: 'Active',    enrolled: 'Jul 22, 2026', notes: '' },
+    { first: 'David',   last: 'Kim',        email: 'david.k@example.com',   phone: '555-0106', course: 'Teen Program',             status: 'Active',    enrolled: 'Jul 15, 2026', notes: '' },
+    { first: 'Olivia',  last: 'Brown',      email: 'o.brown@example.com',   phone: '555-0107', course: 'New Driver Certification', status: 'Active',    enrolled: 'Jul 10, 2026', notes: '' },
+    { first: 'Lucas',   last: 'Martinez',   email: 'lucas.m@example.com',   phone: '555-0108', course: 'Senior Refresher',         status: 'Inactive',  enrolled: 'Jun 28, 2026', notes: '' }
+  ];
+
+  var deleteIndex = -1;
+
+  function initials(first, last) {
+    return (first.charAt(0) + last.charAt(0)).toUpperCase();
+  }
+
+  function statusBadge(status) {
+    if (status === 'Active')    return '<span class="dash-badge dash-badge-route">Active</span>';
+    if (status === 'Completed') return '<span class="dash-badge dash-badge-signal">Completed</span>';
+    return '<span class="dash-badge dash-badge-clay">Inactive</span>';
+  }
+
+  function avatarColor(first) {
+    var colors = ['bg-route/15 text-route', 'bg-signal/15 text-signal', 'bg-clay/15 text-clay'];
+    var idx = first.charCodeAt(0) % colors.length;
+    return colors[idx];
+  }
+
+  function filterStudents() {
+    var q = document.getElementById('studentSearch').value.toLowerCase().trim();
+    var status = document.getElementById('filterStatus').value;
+    var course = document.getElementById('filterCourse').value;
+    var sort = document.getElementById('filterSort').value;
+
+    var filtered = students.filter(function (s) {
+      if (q) {
+        var haystack = (s.first + ' ' + s.last + ' ' + s.email + ' ' + s.phone + ' ' + s.course).toLowerCase();
+        if (haystack.indexOf(q) === -1) return false;
+      }
+      if (status && s.status !== status) return false;
+      if (course && s.course.indexOf(course) === -1) return false;
+      return true;
+    });
+
+    if (sort === 'name') {
+      filtered.sort(function (a, b) { return (a.first + a.last).localeCompare(b.first + b.last); });
+    } else if (sort === 'date') {
+      filtered.sort(function (a, b) { return new Date(b.enrolled) - new Date(a.enrolled); });
+    } else if (sort === 'course') {
+      filtered.sort(function (a, b) { return a.course.localeCompare(b.course); });
+    }
+
+    renderTable(filtered);
+  }
+
+  function renderTable(list) {
+    var data = list || students;
+    var tbody = document.getElementById('studentsBody');
+    var html = '';
+    data.forEach(function (s, i) {
+      var origIdx = students.indexOf(s);
+      html += '<tr>'
+        + '<td><div class="flex items-center gap-3">'
+          + '<span class="w-9 h-9 rounded-full ' + avatarColor(s.first) + ' grid place-items-center font-display font-bold text-xs shrink-0">' + initials(s.first, s.last) + '</span>'
+          + '<span class="font-semibold">' + s.first + ' ' + s.last + '</span>'
+        + '</div></td>'
+        + '<td class="text-sm text-ink/50 dark:text-paper/50">' + s.email + '</td>'
+        + '<td class="text-sm">' + s.course + '</td>'
+        + '<td>' + statusBadge(s.status) + '</td>'
+        + '<td class="text-sm text-ink/40 dark:text-paper/40">' + s.enrolled + '</td>'
+        + '<td><div class="flex items-center gap-1">'
+          + '<button onclick="openEditModal(' + origIdx + ')" class="w-8 h-8 grid place-items-center rounded-lg hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors text-ink/40 dark:text-paper/40 hover:text-signal" title="Edit">'
+            + '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>'
+          + '</button>'
+          + '<button onclick="openDeleteModal(' + origIdx + ')" class="w-8 h-8 grid place-items-center rounded-lg hover:bg-clay/10 transition-colors text-ink/40 dark:text-paper/40 hover:text-clay" title="Delete">'
+            + '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>'
+          + '</button>'
+        + '</div></td>'
+      + '</tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  /* ── Add / Edit modal ── */
+  window.openAddModal = function () {
+    document.getElementById('modalTitle').textContent = 'Add Student';
+    document.getElementById('formIndex').value = -1;
+    document.getElementById('formFirst').value = '';
+    document.getElementById('formLast').value = '';
+    document.getElementById('formEmail').value = '';
+    document.getElementById('formPhone').value = '';
+    document.getElementById('formCourse').value = 'New Driver Certification';
+    document.getElementById('formStatus').value = 'Active';
+    document.getElementById('formNotes').value = '';
+    document.getElementById('studentModal').classList.add('open');
+  };
+
+  window.openEditModal = function (i) {
+    var s = students[i];
+    document.getElementById('modalTitle').textContent = 'Edit Student';
+    document.getElementById('formIndex').value = i;
+    document.getElementById('formFirst').value = s.first;
+    document.getElementById('formLast').value = s.last;
+    document.getElementById('formEmail').value = s.email;
+    document.getElementById('formPhone').value = s.phone;
+    document.getElementById('formCourse').value = s.course;
+    document.getElementById('formStatus').value = s.status;
+    document.getElementById('formNotes').value = s.notes;
+    document.getElementById('studentModal').classList.add('open');
+  };
+
+  window.closeStudentModal = function () {
+    document.getElementById('studentModal').classList.remove('open');
+  };
+
+  window.saveStudent = function () {
+    var idx = parseInt(document.getElementById('formIndex').value, 10);
+    var first = document.getElementById('formFirst').value.trim();
+    var last = document.getElementById('formLast').value.trim();
+    var email = document.getElementById('formEmail').value.trim();
+    var phone = document.getElementById('formPhone').value.trim();
+    var course = document.getElementById('formCourse').value;
+    var status = document.getElementById('formStatus').value;
+    var notes = document.getElementById('formNotes').value.trim();
+
+    if (!first || !last || !email) return;
+
+    var now = new Date();
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var dateStr = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+
+    if (idx >= 0) {
+      students[idx].first = first;
+      students[idx].last = last;
+      students[idx].email = email;
+      students[idx].phone = phone;
+      students[idx].course = course;
+      students[idx].status = status;
+      students[idx].notes = notes;
+      filterStudents();
+      closeStudentModal();
+      showToast('Student updated successfully');
+    } else {
+      students.push({ first: first, last: last, email: email, phone: phone, course: course, status: status, enrolled: dateStr, notes: notes });
+      filterStudents();
+      closeStudentModal();
+      showToast('Student added successfully');
+    }
+  };
+
+  /* ── Delete modal ── */
+  window.openDeleteModal = function (i) {
+    deleteIndex = i;
+    var s = students[i];
+    document.getElementById('deleteMessage').textContent = 'Are you sure you want to delete ' + s.first + ' ' + s.last + '?';
+    document.getElementById('deleteModal').classList.add('open');
+  };
+
+  window.closeDeleteModal = function () {
+    deleteIndex = -1;
+    document.getElementById('deleteModal').classList.remove('open');
+  };
+
+  window.confirmDelete = function () {
+    if (deleteIndex < 0) return;
+    var name = students[deleteIndex].first + ' ' + students[deleteIndex].last;
+    students.splice(deleteIndex, 1);
+    filterStudents();
+    closeDeleteModal();
+    showToast('Student deleted');
+  };
+
+  /* ── Toast ── */
+  function showToast(msg) {
+    var toast = document.getElementById('successToast');
+    document.getElementById('toastMessage').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 3000);
+  }
+
+  /* ── Close modals on overlay click ── */
+  document.getElementById('studentModal').addEventListener('click', function (e) {
+    if (e.target === this) closeStudentModal();
+  });
+  document.getElementById('deleteModal').addEventListener('click', function (e) {
+    if (e.target === this) closeDeleteModal();
+  });
+
+  /* ── Close modals on Escape ── */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeStudentModal();
+      closeDeleteModal();
+    }
+  });
+
+  /* ── Search + filter listeners ── */
+  document.getElementById('studentSearch').addEventListener('input', filterStudents);
+  document.getElementById('filterStatus').addEventListener('change', filterStudents);
+  document.getElementById('filterCourse').addEventListener('change', filterStudents);
+  document.getElementById('filterSort').addEventListener('change', filterStudents);
+
+  renderTable();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payments | RouteWise Admin</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%2314181F%22/><circle cx=%2212%22 cy=%2212%22 r=%224%22 fill=%22%23FFC53D%22/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="Payments">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+      <h1 class="text-2xl font-display font-bold mb-6">Payments</h1>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="rounded-xl border border-sand dark:border-ink-border bg-white dark:bg-ink-light p-5">
+          <p class="text-xs font-semibold text-ink/50 dark:text-paper/50 mb-1">Total Revenue</p>
+          <p class="text-2xl font-display font-bold text-route">$14,280</p>
+        </div>
+        <div class="rounded-xl border border-sand dark:border-ink-border bg-white dark:bg-ink-light p-5">
+          <p class="text-xs font-semibold text-ink/50 dark:text-paper/50 mb-1">Pending</p>
+          <p class="text-2xl font-display font-bold text-signal">$2,640</p>
+        </div>
+        <div class="rounded-xl border border-sand dark:border-ink-border bg-white dark:bg-ink-light p-5">
+          <p class="text-xs font-semibold text-ink/50 dark:text-paper/50 mb-1">This Month</p>
+          <p class="text-2xl font-display font-bold text-ink dark:text-paper">$3,120</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 mb-6">
+        <select id="filterStatus" class="px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+          <option value="">All Status</option>
+          <option>Paid</option>
+          <option>Pending</option>
+          <option>Overdue</option>
+        </select>
+        <select id="filterCourse" class="px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+          <option value="">All Courses</option>
+          <option>New Driver</option>
+          <option>Senior</option>
+          <option>Teen</option>
+        </select>
+        <input type="date" id="filterFrom" class="px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route" placeholder="From">
+        <input type="date" id="filterTo" class="px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route" placeholder="To">
+      </div>
+
+      <div class="overflow-x-auto rounded-xl border border-sand dark:border-ink-border">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-sand dark:border-ink-border bg-cream/50 dark:bg-ink-light/50">
+              <th class="text-left px-4 py-3 font-semibold text-xs">Student</th>
+              <th class="text-left px-4 py-3 font-semibold text-xs">Course</th>
+              <th class="text-right px-4 py-3 font-semibold text-xs">Amount</th>
+              <th class="text-right px-4 py-3 font-semibold text-xs">Paid</th>
+              <th class="text-center px-4 py-3 font-semibold text-xs">Status</th>
+              <th class="text-left px-4 py-3 font-semibold text-xs">Date</th>
+              <th class="text-right px-4 py-3 font-semibold text-xs">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="paymentsBody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="receiptModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm">
+  <div class="bg-paper dark:bg-ink-light rounded-2xl shadow-2xl w-full max-w-md mx-4 border border-sand dark:border-ink-border">
+    <div class="flex items-center justify-between p-6 border-b border-sand dark:border-ink-border">
+      <h2 class="text-lg font-display font-bold">Payment Receipt</h2>
+      <button id="closeReceiptBtn" class="p-1 rounded-lg hover:bg-sand dark:hover:bg-ink transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="receiptContent" class="p-6 space-y-4"></div>
+    <div class="flex gap-3 p-6 pt-0">
+      <button id="printReceiptBtn" class="flex-1 px-4 py-2.5 rounded-xl border border-sand dark:border-ink-border text-sm font-semibold hover:bg-sand dark:hover:bg-ink-light transition">Print</button>
+      <button id="closeReceiptBtn2" class="flex-1 px-4 py-2.5 rounded-xl bg-ink dark:bg-paper dark:text-ink text-paper text-sm font-semibold hover:opacity-90 transition">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="confirmModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm">
+  <div class="bg-paper dark:bg-ink-light rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-8 text-center border border-sand dark:border-ink-border">
+    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-signal/10 flex items-center justify-center">
+      <svg class="w-8 h-8 text-signal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    </div>
+    <h3 class="text-lg font-display font-bold mb-2">Mark as Paid?</h3>
+    <p class="text-sm text-ink/60 dark:text-paper/60 mb-6">This will update the payment status to Paid.</p>
+    <div class="flex gap-3">
+      <button id="cancelConfirmBtn" class="flex-1 px-4 py-2.5 rounded-xl border border-sand dark:border-ink-border text-sm font-semibold hover:bg-sand dark:hover:bg-ink-light transition">Cancel</button>
+      <button id="confirmPayBtn" class="flex-1 px-4 py-2.5 rounded-xl bg-route text-white text-sm font-semibold hover:opacity-90 transition">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div id="successPopup" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm">
+  <div class="bg-paper dark:bg-ink-light rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-8 text-center border border-sand dark:border-ink-border">
+    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-route/10 flex items-center justify-center">
+      <svg class="w-8 h-8 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    </div>
+    <h3 class="text-lg font-display font-bold mb-2">Payment Confirmed!</h3>
+    <p class="text-sm text-ink/60 dark:text-paper/60 mb-6">The payment status has been updated.</p>
+    <button id="closeSuccessBtn" class="w-full px-4 py-2.5 rounded-xl bg-route text-white text-sm font-semibold hover:opacity-90 transition">Done</button>
+  </div>
+</div>
+
+<script src="../shared/sidebar-admin.js"></script>
+<script>
+const payments = [
+  { student: 'Sarah Johnson', course: 'New Driver', amount: 780, paid: 780, status: 'Paid', date: '2025-08-01' },
+  { student: 'Michael Chen', course: 'Senior', amount: 450, paid: 450, status: 'Paid', date: '2025-08-03' },
+  { student: 'Emma Rodriguez', course: 'Teen', amount: 620, paid: 310, status: 'Pending', date: '2025-08-05' },
+  { student: 'James Wilson', course: 'New Driver', amount: 780, paid: 780, status: 'Paid', date: '2025-07-28' },
+  { student: 'Aisha Patel', course: 'Senior', amount: 450, paid: 225, status: 'Pending', date: '2025-08-07' },
+  { student: 'David Kim', course: 'Teen', amount: 620, paid: 620, status: 'Paid', date: '2025-07-25' },
+  { student: 'Olivia Brown', course: 'New Driver', amount: 780, paid: 520, status: 'Paid', date: '2025-08-10' },
+  { student: 'Lucas Martinez', course: 'Senior', amount: 450, paid: 0, status: 'Overdue', date: '2025-07-15' },
+  { student: 'Sophia Lee', course: 'New Driver', amount: 780, paid: 780, status: 'Paid', date: '2025-08-12' },
+  { student: 'Noah Garcia', course: 'Teen', amount: 620, paid: 310, status: 'Pending', date: '2025-08-14' },
+];
+
+const methods = ['Credit Card', 'PayPal', 'Bank Transfer'];
+const txPrefixes = ['TXN', 'PAY', 'INV'];
+
+function statusBadge(status) {
+  const colors = { Paid: 'bg-route/10 text-route', Pending: 'bg-signal/10 text-signal', Overdue: 'bg-clay/10 text-clay' };
+  return `<span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${colors[status]}">${status}</span>`;
+}
+
+function formatDate(d) {
+  return new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function renderTable() {
+  const statusF = document.getElementById('filterStatus').value;
+  const courseF = document.getElementById('filterCourse').value;
+  const fromF = document.getElementById('filterFrom').value;
+  const toF = document.getElementById('filterTo').value;
+  const tbody = document.getElementById('paymentsBody');
+
+  const filtered = payments.filter((p, i) => {
+    if (statusF && p.status !== statusF) return false;
+    if (courseF && !p.course.includes(courseF)) return false;
+    if (fromF && p.date < fromF) return false;
+    if (toF && p.date > toF) return false;
+    return true;
+  });
+
+  tbody.innerHTML = filtered.map((p, i) => {
+    const idx = payments.indexOf(p);
+    return `<tr class="border-b border-sand/50 dark:border-ink-border/50 last:border-0 hover:bg-cream/30 dark:hover:bg-ink-light/30 transition">
+      <td class="px-4 py-3 font-semibold">${p.student}</td>
+      <td class="px-4 py-3 text-ink/60 dark:text-paper/60">${p.course}</td>
+      <td class="px-4 py-3 text-right font-mono">$${p.amount.toLocaleString()}</td>
+      <td class="px-4 py-3 text-right font-mono">$${p.paid.toLocaleString()}</td>
+      <td class="px-4 py-3 text-center">${statusBadge(p.status)}</td>
+      <td class="px-4 py-3 text-ink/50 dark:text-paper/50">${formatDate(p.date)}</td>
+      <td class="px-4 py-3 text-right">
+        <div class="flex items-center justify-end gap-2">
+          <button onclick="viewReceipt(${idx})" class="px-3 py-1.5 rounded-lg border border-sand dark:border-ink-border text-xs font-semibold hover:bg-sand dark:hover:bg-ink-light transition">View</button>
+          ${p.status !== 'Paid' ? `<button onclick="markPaid(${idx})" class="px-3 py-1.5 rounded-lg bg-route/10 text-route text-xs font-semibold hover:bg-route/20 transition">Mark Paid</button>` : ''}
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-12 text-center text-ink/30 dark:text-paper/30 text-sm">No payments match filters</td></tr>';
+  }
+}
+
+let pendingIdx = -1;
+
+function viewReceipt(idx) {
+  const p = payments[idx];
+  const modal = document.getElementById('receiptModal');
+  const content = document.getElementById('receiptContent');
+  const txId = txPrefixes[idx % 3] + '-' + (100000 + idx * 7391);
+  const method = methods[idx % 3];
+  content.innerHTML = `
+    <div class="rounded-xl bg-cream/50 dark:bg-ink/50 p-4 space-y-3">
+      <div class="flex justify-between text-sm"><span class="text-ink/50 dark:text-paper/50">Student</span><span class="font-semibold">${p.student}</span></div>
+      <div class="flex justify-between text-sm"><span class="text-ink/50 dark:text-paper/50">Course</span><span>${p.course}</span></div>
+      <div class="flex justify-between text-sm"><span class="text-ink/50 dark:text-paper/50">Total Amount</span><span class="font-mono font-semibold">$${p.amount.toLocaleString()}</span></div>
+      <div class="flex justify-between text-sm"><span class="text-ink/50 dark:text-paper/50">Paid</span><span class="font-mono font-semibold text-route">$${p.paid.toLocaleString()}</span></div>
+      <div class="flex justify-between text-sm"><span class="text-ink/50 dark:text-paper/50">Payment Method</span><span>${method}</span></div>
+      <div class="flex justify-between text-sm"><span class="text-ink/50 dark:text-paper/50">Date</span><span>${formatDate(p.date)}</span></div>
+      <div class="flex justify-between text-sm"><span class="text-ink/50 dark:text-paper/50">Transaction ID</span><span class="font-mono text-xs">${txId}</span></div>
+      <div class="flex justify-between text-sm"><span class="text-ink/50 dark:text-paper/50">Status</span><span>${statusBadge(p.status)}</span></div>
+    </div>
+  `;
+  modal.classList.replace('hidden', 'flex');
+}
+
+function markPaid(idx) {
+  pendingIdx = idx;
+  document.getElementById('confirmModal').classList.replace('hidden', 'flex');
+}
+
+document.getElementById('closeReceiptBtn').addEventListener('click', () => document.getElementById('receiptModal').classList.replace('flex', 'hidden'));
+document.getElementById('closeReceiptBtn2').addEventListener('click', () => document.getElementById('receiptModal').classList.replace('flex', 'hidden'));
+document.getElementById('printReceiptBtn').addEventListener('click', () => window.print());
+
+document.getElementById('cancelConfirmBtn').addEventListener('click', () => {
+  document.getElementById('confirmModal').classList.replace('flex', 'hidden');
+  pendingIdx = -1;
+});
+
+document.getElementById('confirmPayBtn').addEventListener('click', () => {
+  if (pendingIdx >= 0) {
+    payments[pendingIdx].status = 'Paid';
+    payments[pendingIdx].paid = payments[pendingIdx].amount;
+  }
+  document.getElementById('confirmModal').classList.replace('flex', 'hidden');
+  document.getElementById('successPopup').classList.replace('hidden', 'flex');
+  renderTable();
+  pendingIdx = -1;
+});
+
+document.getElementById('closeSuccessBtn').addEventListener('click', () => document.getElementById('successPopup').classList.replace('flex', 'hidden'));
+
+document.getElementById('filterStatus').addEventListener('change', renderTable);
+document.getElementById('filterCourse').addEventListener('change', renderTable);
+document.getElementById('filterFrom').addEventListener('change', renderTable);
+document.getElementById('filterTo').addEventListener('change', renderTable);
+
+renderTable();
+</script>
+</body>
+</html>

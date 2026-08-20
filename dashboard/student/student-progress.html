@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>License Progress | RouteWise</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%2314181F%22/><circle cx=%2212%22 cy=%2212%22 r=%224%22 fill=%22%23FFC53D%22/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+<style>
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(232, 164, 58, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(232, 164, 58, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(232, 164, 58, 0); }
+}
+.pulse-gold { animation: pulse-ring 2s ease-out infinite; }
+</style>
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="License Progress">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+
+      <!-- Progress Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
+        <div>
+          <h1 class="font-display text-2xl md:text-3xl font-bold text-ink">Your Road to License</h1>
+          <p class="text-ink/60 mt-1">Track your milestones and stay on course.</p>
+        </div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-route/10 rounded-full border border-route/20">
+          <svg class="w-4 h-4 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/></svg>
+          <span class="text-sm font-bold text-route">60% Complete</span>
+        </div>
+      </div>
+
+      <!-- Milestone Tracker -->
+      <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6 md:p-8 mb-8">
+        <div class="relative">
+          <!-- Progress Line (background) -->
+          <div class="absolute top-5 left-0 right-0 h-1 bg-ink/5 rounded-full hidden md:block"></div>
+          <!-- Progress Line (fill) -->
+          <div class="absolute top-5 left-0 h-1 bg-gradient-to-r from-route to-route rounded-full hidden md:block transition-all duration-1000" style="width: 38%"></div>
+
+          <!-- Steps -->
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between relative">
+
+            <!-- Step 1: Registration - Done -->
+            <div class="flex items-center gap-4 md:flex-col md:items-center md:gap-3 md:flex-1 mb-6 md:mb-0">
+              <div class="relative z-10 w-10 h-10 rounded-full bg-route flex items-center justify-center shadow-lg shadow-route/20">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div class="md:text-center">
+                <span class="text-sm font-bold text-route">Registration</span>
+                <p class="text-[11px] text-ink/40 mt-0.5">Done</p>
+              </div>
+            </div>
+
+            <!-- Step 2: Theory Test - Done -->
+            <div class="flex items-center gap-4 md:flex-col md:items-center md:gap-3 md:flex-1 mb-6 md:mb-0">
+              <div class="relative z-10 w-10 h-10 rounded-full bg-route flex items-center justify-center shadow-lg shadow-route/20">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div class="md:text-center">
+                <span class="text-sm font-bold text-route">Theory Test</span>
+                <p class="text-[11px] text-ink/40 mt-0.5">Done</p>
+              </div>
+            </div>
+
+            <!-- Step 3: Practical Lessons - In Progress -->
+            <div class="flex items-center gap-4 md:flex-col md:items-center md:gap-3 md:flex-1 mb-6 md:mb-0">
+              <div class="relative z-10 w-10 h-10 rounded-full bg-signal flex items-center justify-center shadow-lg shadow-signal/20 pulse-gold">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </div>
+              <div class="md:text-center">
+                <span class="text-sm font-bold text-signal">Practical Lessons</span>
+                <p class="text-[11px] text-signal/60 mt-0.5">In Progress</p>
+              </div>
+            </div>
+
+            <!-- Step 4: Mock Test - Pending -->
+            <div class="flex items-center gap-4 md:flex-col md:items-center md:gap-3 md:flex-1 mb-6 md:mb-0">
+              <div class="relative z-10 w-10 h-10 rounded-full bg-ink/10 dark:bg-paper/10 flex items-center justify-center">
+                <span class="text-ink/30 dark:text-paper/30 text-sm font-bold">4</span>
+              </div>
+              <div class="md:text-center">
+                <span class="text-sm font-medium text-ink/30 dark:text-paper/30">Mock Test</span>
+                <p class="text-[11px] text-ink/30 mt-0.5">Pending</p>
+              </div>
+            </div>
+
+            <!-- Step 5: License Test - Pending -->
+            <div class="flex items-center gap-4 md:flex-col md:items-center md:gap-3 md:flex-1">
+              <div class="relative z-10 w-10 h-10 rounded-full bg-ink/10 dark:bg-paper/10 flex items-center justify-center">
+                <span class="text-ink/30 dark:text-paper/30 text-sm font-bold">5</span>
+              </div>
+              <div class="md:text-center">
+                <span class="text-sm font-medium text-ink/30 dark:text-paper/30">License Test</span>
+                <p class="text-[11px] text-ink/30 mt-0.5">Pending</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hours Summary -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <!-- Completed Hours -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-route/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-sm font-medium text-ink/50">Completed</span>
+          </div>
+          <div class="font-display text-3xl font-bold text-route">18 hrs</div>
+          <div class="mt-3 w-full h-2 bg-route/10 rounded-full overflow-hidden">
+            <div class="h-full bg-route rounded-full" style="width: 60%"></div>
+          </div>
+        </div>
+        <!-- Remaining Hours -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-signal/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-signal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="text-sm font-medium text-ink/50">Remaining</span>
+          </div>
+          <div class="font-display text-3xl font-bold text-signal">12 hrs</div>
+          <div class="mt-3 w-full h-2 bg-signal/10 rounded-full overflow-hidden">
+            <div class="h-full bg-signal rounded-full" style="width: 40%"></div>
+          </div>
+        </div>
+        <!-- Lessons Left -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-clay/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-clay" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
+            <span class="text-sm font-medium text-ink/50">Lessons Left</span>
+          </div>
+          <div class="font-display text-3xl font-bold text-clay">~6</div>
+          <p class="text-xs text-ink/40 mt-2">Based on 2 hrs/session</p>
+        </div>
+      </div>
+
+      <!-- Milestone Detail Cards -->
+      <h2 class="font-display text-lg font-bold text-ink mb-4">Milestone Details</h2>
+      <div class="space-y-4 mb-8">
+
+        <!-- Registration -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-route/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                <h3 class="font-display font-bold text-ink">Registration</h3>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-route/10 text-route w-fit">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  Completed
+                </span>
+              </div>
+              <p class="text-sm text-ink/50">Completed <span class="font-medium text-ink/70">August 1, 2025</span></p>
+              <p class="text-sm text-ink/50 mt-1">Registration fee: <span class="font-mono font-bold text-ink">$120</span> — <span class="text-route">Paid</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Theory Test -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-route/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                <h3 class="font-display font-bold text-ink">Theory Test</h3>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-route/10 text-route w-fit">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  Passed
+                </span>
+              </div>
+              <p class="text-sm text-ink/50">Passed on <span class="font-medium text-ink/70">August 15, 2025</span></p>
+              <p class="text-sm text-ink/50 mt-1">Score: <span class="font-mono font-bold text-route text-lg">92%</span> <span class="text-ink/30">/ 100</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Practical Lessons -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-signal/20 dark:border-signal/20 p-6 ring-1 ring-signal/10">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-signal/10 flex items-center justify-center flex-shrink-0 pulse-gold">
+              <svg class="w-6 h-6 text-signal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                <h3 class="font-display font-bold text-ink">Practical Lessons</h3>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-signal/10 text-signal w-fit">
+                  <span class="w-2 h-2 rounded-full bg-signal animate-pulse"></span>
+                  In Progress
+                </span>
+              </div>
+              <p class="text-sm text-ink/50">Started <span class="font-medium text-ink/70">September 1, 2025</span></p>
+              <p class="text-sm text-ink/50 mt-1"><span class="font-mono font-bold text-signal">18</span> of <span class="font-mono font-bold text-ink">30</span> hours completed</p>
+              <div class="mt-3 w-full h-3 bg-signal/10 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-signal to-signal rounded-full transition-all duration-1000 relative" style="width: 60%">
+                  <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[9px] font-bold text-white">60%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mock Test -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6 opacity-70">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-ink/5 dark:bg-paper/5 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-ink/30 dark:text-paper/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                <h3 class="font-display font-bold text-ink/50">Mock Test</h3>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-ink/5 text-ink/40 w-fit">
+                  Pending
+                </span>
+              </div>
+              <p class="text-sm text-ink/40">Scheduled for <span class="font-medium text-ink/60">October 15, 2025</span></p>
+              <a href="student-mocktest.html" class="inline-flex items-center gap-1 text-sm text-route hover:text-route/80 font-medium mt-2 transition-colors">
+                Take a practice test
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- License Test -->
+        <div class="bg-white dark:bg-ink-light rounded-2xl border border-ink/5 dark:border-paper/10 p-6 opacity-60">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-ink/5 dark:bg-paper/5 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-ink/30 dark:text-paper/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                <h3 class="font-display font-bold text-ink/40">License Test</h3>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-ink/5 text-ink/30 w-fit">
+                  Pending
+                </span>
+              </div>
+              <p class="text-sm text-ink/40">Not yet scheduled</p>
+              <p class="text-sm text-ink/30 mt-1">Complete practical lessons and pass mock test first.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../shared/sidebar-student.js"></script>
+</body>
+</html>

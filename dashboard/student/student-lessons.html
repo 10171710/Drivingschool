@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Lessons | RouteWise</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%2314181F%22/><circle cx=%2212%22 cy=%2212%22 r=%224%22 fill=%22%23FFC53D%22/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="My Lessons">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-display text-2xl sm:text-3xl font-bold text-ink dark:text-paper">My Lessons</h1>
+          <p class="text-ink/60 dark:text-paper/60 mt-1 text-sm">Manage your driving lessons</p>
+        </div>
+        <a href="student-book.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-route text-white rounded-lg font-medium text-sm hover:bg-route/90 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Book New
+        </a>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex gap-1 mb-6 p-1 bg-ink/5 dark:bg-paper/5 rounded-lg w-fit">
+        <button class="lesson-tab active px-4 py-2 rounded-md text-sm font-medium transition-colors" data-filter="all">All</button>
+        <button class="lesson-tab px-4 py-2 rounded-md text-sm font-medium transition-colors" data-filter="upcoming">Upcoming</button>
+        <button class="lesson-tab px-4 py-2 rounded-md text-sm font-medium transition-colors" data-filter="completed">Completed</button>
+        <button class="lesson-tab px-4 py-2 rounded-md text-sm font-medium transition-colors" data-filter="cancelled">Cancelled</button>
+      </div>
+
+      <!-- Lessons Table -->
+      <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-ink/10 dark:border-paper/10">
+                <th class="text-left py-3 px-4 text-ink/50 dark:text-paper/50 font-medium">Date/Time</th>
+                <th class="text-left py-3 px-4 text-ink/50 dark:text-paper/50 font-medium">Instructor</th>
+                <th class="text-left py-3 px-4 text-ink/50 dark:text-paper/50 font-medium">Focus</th>
+                <th class="text-left py-3 px-4 text-ink/50 dark:text-paper/50 font-medium">Duration</th>
+                <th class="text-left py-3 px-4 text-ink/50 dark:text-paper/50 font-medium">Status</th>
+                <th class="text-right py-3 px-4 text-ink/50 dark:text-paper/50 font-medium">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="text-ink dark:text-paper">
+
+              <!-- Row 1: Upcoming -->
+              <tr class="lesson-row border-b border-ink/5 dark:border-paper/5 cursor-pointer hover:bg-ink/5 dark:hover:bg-paper/5 transition-colors" data-status="upcoming" data-lesson-id="1">
+                <td class="py-3 px-4 font-medium">
+                  <div>Fri, Aug 21</div>
+                  <div class="text-xs text-ink/50 dark:text-paper/50">4:00 PM</div>
+                </td>
+                <td class="py-3 px-4">David Alvarez</td>
+                <td class="py-3 px-4">Parallel parking</td>
+                <td class="py-3 px-4">1.5hr</td>
+                <td class="py-3 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-signal/10 text-signal">Upcoming</span></td>
+                <td class="py-3 px-4 text-right">
+                  <div class="flex items-center justify-end gap-2">
+                    <button class="reschedule-btn px-3 py-1.5 text-xs font-medium bg-ink/5 dark:bg-paper/5 hover:bg-ink/10 dark:hover:bg-paper/10 rounded-md transition-colors" data-lesson-id="1">Reschedule</button>
+                    <button class="cancel-btn px-3 py-1.5 text-xs font-medium bg-clay/10 text-clay hover:bg-clay/20 rounded-md transition-colors" data-lesson-id="1">Cancel</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 2: Completed -->
+              <tr class="lesson-row border-b border-ink/5 dark:border-paper/5 cursor-pointer hover:bg-ink/5 dark:hover:bg-paper/5 transition-colors" data-status="completed" data-lesson-id="2">
+                <td class="py-3 px-4 font-medium">
+                  <div>Tue, Aug 18</div>
+                  <div class="text-xs text-ink/50 dark:text-paper/50">4:00 PM</div>
+                </td>
+                <td class="py-3 px-4">David Alvarez</td>
+                <td class="py-3 px-4">Hill starts</td>
+                <td class="py-3 px-4">1.5hr</td>
+                <td class="py-3 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-route/10 text-route">Completed</span></td>
+                <td class="py-3 px-4 text-right">
+                  <a href="student-notes.html" class="inline-flex px-3 py-1.5 text-xs font-medium bg-ink/5 dark:bg-paper/5 hover:bg-ink/10 dark:hover:bg-paper/10 rounded-md transition-colors">View Notes</a>
+                </td>
+              </tr>
+
+              <!-- Row 3: Completed -->
+              <tr class="lesson-row border-b border-ink/5 dark:border-paper/5 cursor-pointer hover:bg-ink/5 dark:hover:bg-paper/5 transition-colors" data-status="completed" data-lesson-id="3">
+                <td class="py-3 px-4 font-medium">
+                  <div>Fri, Aug 14</div>
+                  <div class="text-xs text-ink/50 dark:text-paper/50">2:00 PM</div>
+                </td>
+                <td class="py-3 px-4">Lena Ortiz</td>
+                <td class="py-3 px-4">Night driving</td>
+                <td class="py-3 px-4">2hr</td>
+                <td class="py-3 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-route/10 text-route">Completed</span></td>
+                <td class="py-3 px-4 text-right">
+                  <a href="student-notes.html" class="inline-flex px-3 py-1.5 text-xs font-medium bg-ink/5 dark:bg-paper/5 hover:bg-ink/10 dark:hover:bg-paper/10 rounded-md transition-colors">View Notes</a>
+                </td>
+              </tr>
+
+              <!-- Row 4: Completed -->
+              <tr class="lesson-row border-b border-ink/5 dark:border-paper/5 cursor-pointer hover:bg-ink/5 dark:hover:bg-paper/5 transition-colors" data-status="completed" data-lesson-id="4">
+                <td class="py-3 px-4 font-medium">
+                  <div>Mon, Aug 10</div>
+                  <div class="text-xs text-ink/50 dark:text-paper/50">11:00 AM</div>
+                </td>
+                <td class="py-3 px-4">David Alvarez</td>
+                <td class="py-3 px-4">Highway merging</td>
+                <td class="py-3 px-4">1.5hr</td>
+                <td class="py-3 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-route/10 text-route">Completed</span></td>
+                <td class="py-3 px-4 text-right">
+                  <a href="student-notes.html" class="inline-flex px-3 py-1.5 text-xs font-medium bg-ink/5 dark:bg-paper/5 hover:bg-ink/10 dark:hover:bg-paper/10 rounded-md transition-colors">View Notes</a>
+                </td>
+              </tr>
+
+              <!-- Row 5: Completed -->
+              <tr class="lesson-row border-b border-ink/5 dark:border-paper/5 cursor-pointer hover:bg-ink/5 dark:hover:bg-paper/5 transition-colors" data-status="completed" data-lesson-id="5">
+                <td class="py-3 px-4 font-medium">
+                  <div>Fri, Aug 7</div>
+                  <div class="text-xs text-ink/50 dark:text-paper/50">9:00 AM</div>
+                </td>
+                <td class="py-3 px-4">Aisha Bello</td>
+                <td class="py-3 px-4">Basic maneuvers</td>
+                <td class="py-3 px-4">1hr</td>
+                <td class="py-3 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-route/10 text-route">Completed</span></td>
+                <td class="py-3 px-4 text-right">
+                  <a href="student-notes.html" class="inline-flex px-3 py-1.5 text-xs font-medium bg-ink/5 dark:bg-paper/5 hover:bg-ink/10 dark:hover:bg-paper/10 rounded-md transition-colors">View Notes</a>
+                </td>
+              </tr>
+
+              <!-- Row 6: Completed -->
+              <tr class="lesson-row border-b border-ink/5 dark:border-paper/5 cursor-pointer hover:bg-ink/5 dark:hover:bg-paper/5 transition-colors" data-status="completed" data-lesson-id="6">
+                <td class="py-3 px-4 font-medium">
+                  <div>Tue, Aug 4</div>
+                  <div class="text-xs text-ink/50 dark:text-paper/50">4:00 PM</div>
+                </td>
+                <td class="py-3 px-4">David Alvarez</td>
+                <td class="py-3 px-4">Intersection turns</td>
+                <td class="py-3 px-4">1.5hr</td>
+                <td class="py-3 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-route/10 text-route">Completed</span></td>
+                <td class="py-3 px-4 text-right">
+                  <a href="student-notes.html" class="inline-flex px-3 py-1.5 text-xs font-medium bg-ink/5 dark:bg-paper/5 hover:bg-ink/10 dark:hover:bg-paper/10 rounded-md transition-colors">View Notes</a>
+                </td>
+              </tr>
+
+              <!-- Row 7: Cancelled -->
+              <tr class="lesson-row border-b border-ink/5 dark:border-paper/5 cursor-pointer hover:bg-ink/5 dark:hover:bg-paper/5 transition-colors" data-status="cancelled" data-lesson-id="7">
+                <td class="py-3 px-4 font-medium line-through text-ink/50 dark:text-paper/50">
+                  <div>Fri, Aug 1</div>
+                  <div class="text-xs text-ink/40 dark:text-paper/40">2:00 PM</div>
+                </td>
+                <td class="py-3 px-4 line-through text-ink/50 dark:text-paper/50">Lena Ortiz</td>
+                <td class="py-3 px-4 line-through text-ink/50 dark:text-paper/50">City driving</td>
+                <td class="py-3 px-4 line-through text-ink/50 dark:text-paper/50">2hr</td>
+                <td class="py-3 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-clay/10 text-clay">Cancelled</span></td>
+                <td class="py-3 px-4 text-right"></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Lesson Detail Panels (hidden by default) -->
+      <div id="lesson-detail-2" class="lesson-detail hidden mt-4 bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display font-semibold text-ink dark:text-paper">Lesson Details — Tue, Aug 18</h3>
+          <button class="close-detail text-ink/40 dark:text-paper/40 hover:text-ink dark:hover:text-paper text-lg">&times;</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Instructor Notes</p>
+            <p class="text-ink dark:text-paper">Good progress on hill starts. Maintain smoother clutch release and keep eyes up when transitioning from brake to gas.</p>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Skills Practiced</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Clutch Control</span>
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Brake/Gas Transition</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Rating</p>
+            <div class="flex gap-0.5 text-signal text-lg">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="lesson-detail-3" class="lesson-detail hidden mt-4 bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display font-semibold text-ink dark:text-paper">Lesson Details — Fri, Aug 14</h3>
+          <button class="close-detail text-ink/40 dark:text-paper/40 hover:text-ink dark:hover:text-paper text-lg">&times;</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Instructor Notes</p>
+            <p class="text-ink dark:text-paper">Confident handling in low-light conditions. Continue practicing lane positioning when visibility is reduced.</p>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Skills Practiced</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Low-Light Visibility</span>
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Lane Positioning</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Rating</p>
+            <div class="flex gap-0.5 text-signal text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="lesson-detail-4" class="lesson-detail hidden mt-4 bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display font-semibold text-ink dark:text-paper">Lesson Details — Mon, Aug 10</h3>
+          <button class="close-detail text-ink/40 dark:text-paper/40 hover:text-ink dark:hover:text-paper text-lg">&times;</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Instructor Notes</p>
+            <p class="text-ink dark:text-paper">Improved confidence merging into faster traffic. Work on earlier signal usage and mirror checks before lane changes.</p>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Skills Practiced</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Speed Matching</span>
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Mirror Checks</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Rating</p>
+            <div class="flex gap-0.5 text-signal text-lg">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="lesson-detail-5" class="lesson-detail hidden mt-4 bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display font-semibold text-ink dark:text-paper">Lesson Details — Fri, Aug 7</h3>
+          <button class="close-detail text-ink/40 dark:text-paper/40 hover:text-ink dark:hover:text-paper text-lg">&times;</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Instructor Notes</p>
+            <p class="text-ink dark:text-paper">Solid foundation on basic maneuvers. Smooth acceleration and braking. Ready to build on this in upcoming lessons.</p>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Skills Practiced</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Acceleration</span>
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Braking</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Rating</p>
+            <div class="flex gap-0.5 text-signal text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="lesson-detail-6" class="lesson-detail hidden mt-4 bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display font-semibold text-ink dark:text-paper">Lesson Details — Tue, Aug 4</h3>
+          <button class="close-detail text-ink/40 dark:text-paper/40 hover:text-ink dark:hover:text-paper text-lg">&times;</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Instructor Notes</p>
+            <p class="text-ink dark:text-paper">Good awareness at intersections. Focus on checking both ways twice and yielding properly at unmarked crosswalks.</p>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Skills Practiced</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Intersection Scanning</span>
+              <span class="px-2 py-0.5 bg-route/10 text-route text-xs rounded-full">Yielding</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-ink/50 dark:text-paper/50 mb-1">Rating</p>
+            <div class="flex gap-0.5 text-signal text-lg">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reschedule Modal -->
+      <div id="reschedule-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-ink/50 dark:bg-ink/70 backdrop-blur-sm">
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 shadow-2xl w-full max-w-md mx-4 p-6">
+          <h3 class="font-display font-semibold text-lg text-ink dark:text-paper mb-1">Reschedule Lesson</h3>
+          <p class="text-sm text-ink/50 dark:text-paper/50 mb-5">Select a new date and time for this lesson.</p>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-ink dark:text-paper mb-1.5">New Date</label>
+              <input type="date" class="w-full px-3 py-2.5 rounded-lg border border-ink/15 dark:border-paper/15 bg-paper dark:bg-ink text-ink dark:text-paper text-sm focus:outline-none focus:ring-2 focus:ring-route/30 focus:border-route transition-colors" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ink dark:text-paper mb-1.5">New Time</label>
+              <select class="w-full px-3 py-2.5 rounded-lg border border-ink/15 dark:border-paper/15 bg-paper dark:bg-ink text-ink dark:text-paper text-sm focus:outline-none focus:ring-2 focus:ring-route/30 focus:border-route transition-colors">
+                <option>9:00 AM</option>
+                <option>11:00 AM</option>
+                <option>1:00 PM</option>
+                <option selected>4:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex gap-3 mt-6">
+            <button class="reschedule-cancel-btn flex-1 px-4 py-2.5 text-sm font-medium bg-ink/5 dark:bg-paper/5 hover:bg-ink/10 dark:hover:bg-paper/10 rounded-lg transition-colors">Cancel</button>
+            <button class="reschedule-confirm-btn flex-1 px-4 py-2.5 text-sm font-medium bg-route text-white rounded-lg hover:bg-route/90 transition-colors">Confirm Reschedule</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cancel Modal -->
+      <div id="cancel-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-ink/50 dark:bg-ink/70 backdrop-blur-sm">
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 shadow-2xl w-full max-w-md mx-4 p-6">
+          <h3 class="font-display font-semibold text-lg text-ink dark:text-paper mb-1">Cancel Lesson</h3>
+          <p class="text-sm text-ink/70 dark:text-paper/70 mb-6">Cancel this lesson? This cannot be undone.</p>
+          <div class="flex gap-3">
+            <button class="cancel-dismiss-btn flex-1 px-4 py-2.5 text-sm font-medium bg-ink/5 dark:bg-paper/5 hover:bg-ink/10 dark:hover:bg-paper/10 rounded-lg transition-colors">Keep Lesson</button>
+            <button class="cancel-confirm-btn flex-1 px-4 py-2.5 text-sm font-medium bg-clay text-white rounded-lg hover:bg-clay/90 transition-colors">Confirm Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Popup -->
+      <div id="success-popup" class="fixed inset-0 z-50 hidden items-center justify-center bg-ink/50 dark:bg-ink/70 backdrop-blur-sm">
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 shadow-2xl w-full max-w-sm mx-4 p-6 text-center">
+          <div class="w-12 h-12 rounded-full bg-route/10 flex items-center justify-center mx-auto mb-3">
+            <svg class="w-6 h-6 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p id="success-message" class="font-display font-semibold text-ink dark:text-paper mb-4"></p>
+          <button id="success-ok-btn" class="px-6 py-2.5 text-sm font-medium bg-ink/5 dark:bg-paper/5 hover:bg-ink/10 dark:hover:bg-paper/10 rounded-lg transition-colors">OK</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.lesson-tab');
+  const rows = document.querySelectorAll('.lesson-row');
+  const details = document.querySelectorAll('.lesson-detail');
+
+  // Tab filtering
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active', 'bg-white', 'dark:bg-ink', 'shadow-sm', 'text-ink', 'dark:text-paper'));
+      tab.classList.add('active', 'bg-white', 'dark:bg-ink', 'shadow-sm', 'text-ink', 'dark:text-paper');
+      const filter = tab.dataset.filter;
+      rows.forEach(row => {
+        if (filter === 'all' || row.dataset.status === filter) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+      details.forEach(d => d.classList.add('hidden'));
+    });
+  });
+
+  // Set initial active tab style
+  document.querySelector('.lesson-tab.active').classList.add('bg-white', 'dark:bg-ink', 'shadow-sm', 'text-ink', 'dark:text-paper');
+
+  // Row click to expand detail
+  rows.forEach(row => {
+    row.addEventListener('click', (e) => {
+      if (e.target.closest('button') || e.target.closest('a')) return;
+      const id = row.dataset.lessonId;
+      const detail = document.getElementById('lesson-detail-' + id);
+      if (!detail) return;
+      const isOpen = !detail.classList.contains('hidden');
+      details.forEach(d => d.classList.add('hidden'));
+      if (!isOpen) detail.classList.remove('hidden');
+    });
+  });
+
+  // Close detail panels
+  document.querySelectorAll('.close-detail').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      btn.closest('.lesson-detail').classList.add('hidden');
+    });
+  });
+
+  // Reschedule modal
+  const rescheduleModal = document.getElementById('reschedule-modal');
+  document.querySelectorAll('.reschedule-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      rescheduleModal.classList.remove('hidden');
+      rescheduleModal.classList.add('flex');
+    });
+  });
+  rescheduleModal.querySelector('.reschedule-cancel-btn').addEventListener('click', () => {
+    rescheduleModal.classList.add('hidden');
+    rescheduleModal.classList.remove('flex');
+  });
+  rescheduleModal.querySelector('.reschedule-confirm-btn').addEventListener('click', () => {
+    rescheduleModal.classList.add('hidden');
+    rescheduleModal.classList.remove('flex');
+    showSuccess('Lesson rescheduled');
+  });
+
+  // Cancel modal
+  const cancelModal = document.getElementById('cancel-modal');
+  document.querySelectorAll('.cancel-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cancelModal.classList.remove('hidden');
+      cancelModal.classList.add('flex');
+    });
+  });
+  cancelModal.querySelector('.cancel-dismiss-btn').addEventListener('click', () => {
+    cancelModal.classList.add('hidden');
+    cancelModal.classList.remove('flex');
+  });
+  cancelModal.querySelector('.cancel-confirm-btn').addEventListener('click', () => {
+    cancelModal.classList.add('hidden');
+    cancelModal.classList.remove('flex');
+    showSuccess('Lesson cancelled');
+  });
+
+  // Success popup
+  const successPopup = document.getElementById('success-popup');
+  function showSuccess(message) {
+    document.getElementById('success-message').textContent = message;
+    successPopup.classList.remove('hidden');
+    successPopup.classList.add('flex');
+  }
+  document.getElementById('success-ok-btn').addEventListener('click', () => {
+    successPopup.classList.add('hidden');
+    successPopup.classList.remove('flex');
+  });
+})();
+</script>
+
+<style>
+.lesson-tab.active {
+  background: white;
+}
+@media (prefers-color-scheme: dark) {
+  .lesson-tab.active {
+    background: #1a1d23;
+  }
+}
+</style>
+
+<script src="../shared/sidebar-student.js"></script>
+</body>
+</html>

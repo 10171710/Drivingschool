@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Theory Test | RouteWise</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%2314181F%22/><circle cx=%2212%22 cy=%2212%22 r=%224%22 fill=%22%23FFC53D%22/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="Mock Theory Test">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+
+      <div id="quiz-header" class="bg-white dark:bg-ink/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-8 mb-6">
+        <div class="flex items-start justify-between flex-wrap gap-4">
+          <div>
+            <h1 class="text-2xl font-display font-bold text-ink dark:text-paper mb-1">Mock Theory Test</h1>
+            <p class="text-slate-500 dark:text-slate-400">5 questions &middot; Pass mark: 70%</p>
+          </div>
+          <button id="start-btn" onclick="startQuiz()" class="px-6 py-3 bg-route text-white font-semibold rounded-xl hover:bg-route/90 transition-colors">
+            Start Practice Test
+          </button>
+        </div>
+      </div>
+
+      <div id="quiz-container" class="hidden">
+        <div class="bg-white dark:bg-ink/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-8 mb-6">
+          <div class="flex items-center justify-between mb-3">
+            <span id="progress-label" class="text-sm font-medium text-slate-500 dark:text-slate-400">Question 1 of 5</span>
+            <span id="progress-pct" class="text-sm font-medium text-route">0%</span>
+          </div>
+          <div class="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-route rounded-full transition-all duration-300" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div id="question-card" class="bg-white dark:bg-ink/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-8">
+          <p id="question-number" class="text-sm font-medium text-route mb-2">Question 1</p>
+          <h2 id="question-text" class="text-lg font-display font-bold text-ink dark:text-paper mb-6"></h2>
+          <div id="options" class="space-y-3"></div>
+          <button id="next-btn" onclick="nextQuestion()" disabled class="mt-6 px-6 py-3 bg-ink dark:bg-paper text-paper dark:text-ink font-semibold rounded-xl opacity-40 cursor-not-allowed transition-all">
+            Next
+          </button>
+        </div>
+      </div>
+
+      <div id="results-card" class="hidden bg-white dark:bg-ink/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-8">
+        <div class="text-center mb-8">
+          <p id="result-score" class="text-5xl font-display font-bold mb-2"></p>
+          <p id="result-pct" class="text-lg text-slate-500 dark:text-slate-400 mb-3"></p>
+          <p id="result-msg" class="text-xl font-display font-bold"></p>
+        </div>
+        <div id="breakdown" class="space-y-3 mb-8"></div>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <button onclick="retakeQuiz()" class="px-6 py-3 bg-route text-white font-semibold rounded-xl hover:bg-route/90 transition-colors">Retake Test</button>
+          <a href="student-overview.html" class="px-6 py-3 border border-slate-200 dark:border-slate-700 text-ink dark:text-paper font-semibold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Back to Dashboard</a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../shared/sidebar-student.js"></script>
+<script>
+const questions = [
+  { q: "What is the minimum following distance on a dry road?", opts: ["1 second", "2 seconds", "3 seconds", "4 seconds"], correct: 1 },
+  { q: "When should you use your headlights?", opts: ["Only at night", "Only in tunnels", "When visibility is reduced", "Only on highways"], correct: 2 },
+  { q: "What does a solid white line on the road mean?", opts: ["Lane separation", "No passing allowed", "Pedestrian crossing", "Speed limit zone"], correct: 1 },
+  { q: "You approach a roundabout. What should you do?", opts: ["Speed up to enter quickly", "Stop and wait for a gap if needed", "Honk to alert others", "Enter without looking"], correct: 1 },
+  { q: "What is the speed limit in a residential area unless posted otherwise?", opts: ["45 mph", "35 mph", "25 mph", "15 mph"], correct: 2 }
+];
+let current = 0, answers = [], selected = null;
+
+function startQuiz() {
+  document.getElementById("quiz-header").classList.add("hidden");
+  document.getElementById("results-card").classList.add("hidden");
+  document.getElementById("quiz-container").classList.remove("hidden");
+  current = 0; answers = [];
+  renderQuestion();
+}
+
+function renderQuestion() {
+  selected = null;
+  const q = questions[current];
+  document.getElementById("progress-label").textContent = "Question " + (current + 1) + " of 5";
+  document.getElementById("progress-pct").textContent = Math.round((current / 5) * 100) + "%";
+  document.getElementById("progress-bar").style.width = (current / 5 * 100) + "%";
+  document.getElementById("question-number").textContent = "Question " + (current + 1);
+  document.getElementById("question-text").textContent = q.q;
+
+  const labels = ["A", "B", "C", "D"];
+  const optionsHtml = q.opts.map((opt, i) =>
+    '<button data-idx="' + i + '" onclick="selectOption(' + i + ')" class="w-full text-left px-5 py-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-route/50 transition-colors font-medium">' +
+    '<span class="inline-block w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-center leading-8 mr-3 text-sm font-bold">' + labels[i] + '</span>' + opt + '</button>'
+  ).join("");
+  document.getElementById("options").innerHTML = optionsHtml;
+
+  const nextBtn = document.getElementById("next-btn");
+  nextBtn.disabled = true;
+  nextBtn.classList.add("opacity-40", "cursor-not-allowed");
+  nextBtn.classList.remove("opacity-100", "cursor-pointer");
+}
+
+function selectOption(idx) {
+  selected = idx;
+  answers[current] = idx;
+  const btns = document.querySelectorAll("#options button");
+  btns.forEach((btn, i) => {
+    if (i === idx) {
+      btn.classList.remove("border-slate-200", "dark:border-slate-700");
+      btn.classList.add("border-route", "bg-route/5");
+    } else {
+      btn.classList.remove("border-route", "bg-route/5");
+      btn.classList.add("border-slate-200", "dark:border-slate-700");
+    }
+  });
+  const nextBtn = document.getElementById("next-btn");
+  nextBtn.disabled = false;
+  nextBtn.classList.remove("opacity-40", "cursor-not-allowed");
+  nextBtn.classList.add("opacity-100", "cursor-pointer");
+}
+
+function nextQuestion() {
+  if (selected === null) return;
+  current++;
+  if (current >= 5) { showResults(); return; }
+  renderQuestion();
+}
+
+function showResults() {
+  document.getElementById("quiz-container").classList.add("hidden");
+  const card = document.getElementById("results-card");
+  card.classList.remove("hidden");
+
+  let score = 0;
+  const labels = ["A", "B", "C", "D"];
+  questions.forEach((q, i) => { if (answers[i] === q.correct) score++; });
+  const pct = Math.round((score / 5) * 100);
+  const passed = pct >= 70;
+
+  document.getElementById("result-score").textContent = score + "/5";
+  document.getElementById("result-score").className = "text-5xl font-display font-bold mb-2 " + (passed ? "text-route" : "text-clay");
+  document.getElementById("result-pct").textContent = pct + "%";
+  const msg = document.getElementById("result-msg");
+  if (passed) {
+    msg.textContent = "You Passed!";
+    msg.className = "text-xl font-display font-bold text-route";
+  } else {
+    msg.textContent = "Keep Practicing!";
+    msg.className = "text-xl font-display font-bold text-clay";
+  }
+
+  const bd = document.getElementById("breakdown");
+  bd.innerHTML = questions.map((q, i) => {
+    const correct = answers[i] === q.correct;
+    const icon = correct
+      ? '<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-route/10 text-route text-sm font-bold">&#10003;</span>'
+      : '<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-clay/10 text-clay text-sm font-bold">&#10007;</span>';
+    let extra = "";
+    if (!correct) {
+      extra = '<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Correct answer: ' + labels[q.correct] + ". " + q.opts[q.correct] + "</p>";
+    }
+    return '<div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">' +
+      icon + '<div class="flex-1"><p class="font-medium">' + "Q" + (i + 1) + ". " + q.q + "</p>" + extra + "</div></div>";
+  }).join("");
+}
+
+function retakeQuiz() {
+  current = 0; answers = []; selected = null;
+  document.getElementById("results-card").classList.add("hidden");
+  document.getElementById("quiz-container").classList.add("hidden");
+  document.getElementById("quiz-header").classList.remove("hidden");
+  document.getElementById("progress-bar").style.width = "0%";
+}
+</script>
+</body>
+</html>

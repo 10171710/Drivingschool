@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Progress | RouteWise</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%2314181F%22/><circle cx=%2212%22 cy=%2212%22 r=%224%22 fill=%22%23FFC53D%22/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="Skill Progress">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-display text-2xl sm:text-3xl font-bold text-ink dark:text-paper">Skill Progress</h1>
+          <p class="text-ink/60 dark:text-paper/60 mt-1 text-sm">Track your driving skill development</p>
+        </div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-route/10 border border-route/20">
+          <span class="text-sm font-medium text-ink/70 dark:text-paper/70">Overall:</span>
+          <span class="text-lg font-bold text-route">78%</span>
+        </div>
+      </div>
+
+      <!-- Skills Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+        <!-- Steering Control -->
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display font-semibold text-ink dark:text-paper">Steering Control</h3>
+            <span class="text-lg font-bold text-route">92%</span>
+          </div>
+          <div class="w-full h-2.5 bg-ink/10 dark:bg-paper/10 rounded-full overflow-hidden mb-2">
+            <div class="h-full bg-route rounded-full transition-all duration-500" style="width: 92%"></div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-ink/50 dark:text-paper/50">
+            <span class="text-route">↑ improved</span>
+            <span>Updated Aug 18, 2026</span>
+          </div>
+        </div>
+
+        <!-- Parking -->
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display font-semibold text-ink dark:text-paper">Parking</h3>
+            <span class="text-lg font-bold text-signal">65%</span>
+          </div>
+          <div class="w-full h-2.5 bg-ink/10 dark:bg-paper/10 rounded-full overflow-hidden mb-2">
+            <div class="h-full bg-signal rounded-full transition-all duration-500" style="width: 65%"></div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-ink/50 dark:text-paper/50">
+            <span class="text-signal">→ stable</span>
+            <span>Updated Aug 14, 2026</span>
+          </div>
+        </div>
+
+        <!-- Hill Starts -->
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display font-semibold text-ink dark:text-paper">Hill Starts</h3>
+            <span class="text-lg font-bold text-route">88%</span>
+          </div>
+          <div class="w-full h-2.5 bg-ink/10 dark:bg-paper/10 rounded-full overflow-hidden mb-2">
+            <div class="h-full bg-route rounded-full transition-all duration-500" style="width: 88%"></div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-ink/50 dark:text-paper/50">
+            <span class="text-route">↑ improved</span>
+            <span>Updated Aug 18, 2026</span>
+          </div>
+        </div>
+
+        <!-- Night Driving -->
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display font-semibold text-ink dark:text-paper">Night Driving</h3>
+            <span class="text-lg font-bold text-signal">72%</span>
+          </div>
+          <div class="w-full h-2.5 bg-ink/10 dark:bg-paper/10 rounded-full overflow-hidden mb-2">
+            <div class="h-full bg-signal rounded-full transition-all duration-500" style="width: 72%"></div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-ink/50 dark:text-paper/50">
+            <span class="text-signal">→ stable</span>
+            <span>Updated Aug 14, 2026</span>
+          </div>
+        </div>
+
+        <!-- Highway Merging -->
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display font-semibold text-ink dark:text-paper">Highway Merging</h3>
+            <span class="text-lg font-bold text-clay">58%</span>
+          </div>
+          <div class="w-full h-2.5 bg-ink/10 dark:bg-paper/10 rounded-full overflow-hidden mb-2">
+            <div class="h-full bg-clay rounded-full transition-all duration-500" style="width: 58%"></div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-ink/50 dark:text-paper/50">
+            <span class="text-route">↑ improved</span>
+            <span>Updated Aug 10, 2026</span>
+          </div>
+        </div>
+
+        <!-- Road Rules -->
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display font-semibold text-ink dark:text-paper">Road Rules</h3>
+            <span class="text-lg font-bold text-route">95%</span>
+          </div>
+          <div class="w-full h-2.5 bg-ink/10 dark:bg-paper/10 rounded-full overflow-hidden mb-2">
+            <div class="h-full bg-route rounded-full transition-all duration-500" style="width: 95%"></div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-ink/50 dark:text-paper/50">
+            <span class="text-signal">→ stable</span>
+            <span>Updated Aug 7, 2026</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+        <!-- Skill History -->
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+          <h3 class="font-display font-semibold text-ink dark:text-paper mb-4">Skill History</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-ink/10 dark:border-paper/10">
+                  <th class="text-left py-2 text-ink/50 dark:text-paper/50 font-medium">Date</th>
+                  <th class="text-left py-2 text-ink/50 dark:text-paper/50 font-medium">Skill</th>
+                  <th class="text-right py-2 text-ink/50 dark:text-paper/50 font-medium">Score</th>
+                  <th class="text-right py-2 text-ink/50 dark:text-paper/50 font-medium">Change</th>
+                </tr>
+              </thead>
+              <tbody class="text-ink dark:text-paper">
+                <tr class="border-b border-ink/5 dark:border-paper/5">
+                  <td class="py-2.5 font-mono text-xs">Aug 18</td>
+                  <td class="py-2.5">Steering Control</td>
+                  <td class="py-2.5 text-right font-medium">92%</td>
+                  <td class="py-2.5 text-right text-route font-medium">+4%</td>
+                </tr>
+                <tr class="border-b border-ink/5 dark:border-paper/5">
+                  <td class="py-2.5 font-mono text-xs">Aug 18</td>
+                  <td class="py-2.5">Hill Starts</td>
+                  <td class="py-2.5 text-right font-medium">88%</td>
+                  <td class="py-2.5 text-right text-route font-medium">+3%</td>
+                </tr>
+                <tr class="border-b border-ink/5 dark:border-paper/5">
+                  <td class="py-2.5 font-mono text-xs">Aug 14</td>
+                  <td class="py-2.5">Parking</td>
+                  <td class="py-2.5 text-right font-medium">65%</td>
+                  <td class="py-2.5 text-right text-ink/40 dark:text-paper/40">0%</td>
+                </tr>
+                <tr class="border-b border-ink/5 dark:border-paper/5">
+                  <td class="py-2.5 font-mono text-xs">Aug 14</td>
+                  <td class="py-2.5">Night Driving</td>
+                  <td class="py-2.5 text-right font-medium">72%</td>
+                  <td class="py-2.5 text-right text-ink/40 dark:text-paper/40">0%</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-mono text-xs">Aug 10</td>
+                  <td class="py-2.5">Highway Merging</td>
+                  <td class="py-2.5 text-right font-medium">58%</td>
+                  <td class="py-2.5 text-right text-route font-medium">+6%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Practice Tips -->
+        <div class="bg-white dark:bg-ink-light rounded-xl border border-ink/10 dark:border-paper/10 p-5">
+          <h3 class="font-display font-semibold text-ink dark:text-paper mb-4">Practice Tips</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-signal/10 flex items-center justify-center text-signal text-xs font-bold mt-0.5">1</span>
+              <div>
+                <p class="text-sm font-medium text-ink dark:text-paper">Practice parallel parking in empty lots first</p>
+                <p class="text-xs text-ink/50 dark:text-paper/50 mt-0.5">For Parking — currently at 65%</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-signal/10 flex items-center justify-center text-signal text-xs font-bold mt-0.5">2</span>
+              <div>
+                <p class="text-sm font-medium text-ink dark:text-paper">Start highway merging during low-traffic hours</p>
+                <p class="text-xs text-ink/50 dark:text-paper/50 mt-0.5">For Highway Merging — currently at 58%</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-signal/10 flex items-center justify-center text-signal text-xs font-bold mt-0.5">3</span>
+              <div>
+                <p class="text-sm font-medium text-ink dark:text-paper">Try night driving routes you're familiar with</p>
+                <p class="text-xs text-ink/50 dark:text-paper/50 mt-0.5">For Night Driving — currently at 72%</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../shared/sidebar-student.js"></script>
+</body>
+</html>

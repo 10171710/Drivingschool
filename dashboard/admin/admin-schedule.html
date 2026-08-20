@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedule | RouteWise Admin</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%2314181F%22/><circle cx=%2212%22 cy=%2212%22 r=%224%22 fill=%22%23FFC53D%22/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+<style>
+.lesson-card { border-left: 4px solid; }
+.lesson-new-driver { border-left-color: #0FA36B; background: rgba(15, 163, 107, 0.08); }
+.lesson-teen { border-left-color: #e8a43a; background: rgba(232, 164, 58, 0.08); }
+.lesson-senior { border-left-color: #E0563D; background: rgba(224, 86, 61, 0.08); }
+</style>
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="Schedule">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <h1 class="text-2xl font-display font-bold">Schedule</h1>
+        <button id="addLessonBtn" class="inline-flex items-center gap-2 px-5 py-2.5 bg-route text-white rounded-xl font-semibold text-sm hover:opacity-90 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Add Lesson
+        </button>
+      </div>
+
+      <div class="flex gap-2 mb-6 overflow-x-auto">
+        <button class="day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-ink text-paper" data-day="mon">Mon</button>
+        <button class="day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-cream text-ink dark:bg-ink-light" data-day="tue">Tue</button>
+        <button class="day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-cream text-ink dark:bg-ink-light" data-day="wed">Wed</button>
+        <button class="day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-cream text-ink dark:bg-ink-light" data-day="thu">Thu</button>
+        <button class="day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-cream text-ink dark:bg-ink-light" data-day="fri">Fri</button>
+        <button class="day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-cream text-ink dark:bg-ink-light" data-day="sat">Sat</button>
+      </div>
+
+      <div id="scheduleGrid" class="space-y-1"></div>
+    </main>
+  </div>
+</div>
+
+<div id="addLessonModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm">
+  <div class="bg-paper dark:bg-ink-light rounded-2xl shadow-2xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto border border-sand dark:border-ink-border">
+    <div class="flex items-center justify-between p-6 border-b border-sand dark:border-ink-border">
+      <h2 class="text-lg font-display font-bold">Add Lesson</h2>
+      <button id="closeModalBtn" class="p-1 rounded-lg hover:bg-sand dark:hover:bg-ink transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <form id="addLessonForm" class="p-6 space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold mb-1">Date</label>
+          <input type="date" id="formDate" required class="w-full px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1">Time</label>
+          <select id="formTime" required class="w-full px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+            <option value="">Select time</option>
+            <option>9:00 AM</option>
+            <option>10:00 AM</option>
+            <option>11:00 AM</option>
+            <option>12:00 PM</option>
+            <option>1:00 PM</option>
+            <option>2:00 PM</option>
+            <option>3:00 PM</option>
+            <option>4:00 PM</option>
+            <option>5:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold mb-1">Student Name</label>
+        <select id="formStudent" required class="w-full px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+          <option value="">Select student</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold mb-1">Lesson Name</label>
+        <input type="text" id="formLessonName" required placeholder="e.g. Highway Driving Basics" class="w-full px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold mb-1">Course</label>
+          <select id="formCourse" required class="w-full px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+            <option value="">Select course</option>
+            <option>New Driver</option>
+            <option>Teen Program</option>
+            <option>Senior Refresher</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1">Instructor</label>
+          <select id="formInstructor" required class="w-full px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+            <option value="">Select instructor</option>
+            <option>David Alvarez</option>
+            <option>Lena Ortiz</option>
+            <option>Aisha Bello</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold mb-1">Duration</label>
+          <select id="formDuration" required class="w-full px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+            <option value="">Select duration</option>
+            <option>1hr</option>
+            <option>1.5hr</option>
+            <option>2hr</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1">Vehicle</label>
+          <select id="formVehicle" required class="w-full px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route">
+            <option value="">Select vehicle</option>
+            <option>Sedan — Toyota Camry</option>
+            <option>SUV — Honda CR-V</option>
+            <option>Sedan — Hyundai Elantra</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold mb-1">Notes</label>
+        <textarea id="formNotes" rows="3" placeholder="Optional notes..." class="w-full px-3 py-2 rounded-lg border border-sand dark:border-ink-border bg-white dark:bg-ink text-sm focus:outline-none focus:ring-2 focus:ring-route resize-none"></textarea>
+      </div>
+      <div class="flex gap-3 pt-2">
+        <button type="button" id="cancelLessonBtn" class="flex-1 px-4 py-2.5 rounded-xl border border-sand dark:border-ink-border text-sm font-semibold hover:bg-sand dark:hover:bg-ink-light transition">Cancel</button>
+        <button type="submit" class="flex-1 px-4 py-2.5 rounded-xl bg-route text-white text-sm font-semibold hover:opacity-90 transition">Save Lesson</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="successPopup" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm">
+  <div class="bg-paper dark:bg-ink-light rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-8 text-center border border-sand dark:border-ink-border">
+    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-route/10 flex items-center justify-center">
+      <svg class="w-8 h-8 text-route" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    </div>
+    <h3 class="text-lg font-display font-bold mb-2">Lesson Scheduled!</h3>
+    <p class="text-sm text-ink/60 dark:text-paper/60 mb-6">The lesson has been added to the schedule.</p>
+    <button id="closeSuccessBtn" class="w-full px-4 py-2.5 rounded-xl bg-route text-white text-sm font-semibold hover:opacity-90 transition">Done</button>
+  </div>
+</div>
+
+<div id="successToast" class="dash-popup success">
+  <div class="popup-icon">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  </div>
+  <span id="toastMessage"></span>
+</div>
+
+<script src="../shared/sidebar-admin.js"></script>
+<script>
+const DAYS = ['sun','mon','tue','wed','thu','fri','sat'];
+const DAY_LABELS = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
+const timeSlots = ['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
+
+let scheduleData = JSON.parse(localStorage.getItem('rw_schedule') || 'null') || {
+  mon: [
+    { time:'9:00 AM', student:'Sarah Johnson', lessonName:'Highway Driving Basics', course:'New Driver', instructor:'David Alvarez', duration:'1.5hr', vehicle:'Sedan — Toyota Camry', notes:'' },
+    { time:'11:00 AM', student:'Michael Chen', lessonName:'City Traffic Navigation', course:'Senior Refresher', instructor:'Lena Ortiz', duration:'1hr', vehicle:'SUV — Honda CR-V', notes:'' },
+    { time:'2:00 PM', student:'Emma Rodriguez', lessonName:'Parking Maneuvers', course:'Teen Program', instructor:'Aisha Bello', duration:'2hr', vehicle:'Sedan — Hyundai Elantra', notes:'' },
+    { time:'4:00 PM', student:'James Wilson', lessonName:'Night Driving Practice', course:'New Driver', instructor:'David Alvarez', duration:'1.5hr', vehicle:'Sedan — Toyota Camry', notes:'' },
+  ],
+  tue:[], wed:[], thu:[], fri:[], sat:[]
+};
+function saveSchedule() { localStorage.setItem('rw_schedule', JSON.stringify(scheduleData)); }
+
+let activeDay = DAYS[new Date().getDay()] || 'mon';
+let editingId = null; // 'add' or lesson index
+
+const modal = document.getElementById('addLessonModal');
+const successPopup = document.getElementById('successPopup');
+
+function courseClass(course) {
+  if (course.includes('New Driver')) return 'lesson-new-driver';
+  if (course.includes('Teen')) return 'lesson-teen';
+  return 'lesson-senior';
+}
+
+function statusBadge(lesson) {
+  return '<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-route/10 text-route">Scheduled</span>';
+}
+
+function renderSchedule() {
+  const grid = document.getElementById('scheduleGrid');
+  grid.innerHTML = '';
+  const lessons = scheduleData[activeDay] || [];
+  timeSlots.forEach((time, ti) => {
+    const slotLessons = lessons.filter(l => l.time === time);
+    const slot = document.createElement('div');
+    slot.className = 'flex border-b border-sand/60 dark:border-ink-border/60';
+    slot.innerHTML = `
+      <div class="w-24 shrink-0 py-3 pr-3 text-xs font-mono font-semibold text-ink/50 dark:text-paper/50 text-right">${time}</div>
+      <div class="flex-1 py-2 min-h-[56px] flex flex-col gap-2">
+        ${slotLessons.map((l, i) => {
+          const origIdx = lessons.indexOf(l);
+          return '<div class="lesson-card ' + courseClass(l.course) + ' rounded-lg px-4 py-2.5 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm">'
+            + '<span class="font-semibold">' + l.lessonName + '</span>'
+            + '<span class="text-ink/50 dark:text-paper/50 text-xs">' + l.student + '</span>'
+            + '<span class="text-ink/50 dark:text-paper/50 text-xs">' + l.course + '</span>'
+            + '<span class="text-ink/50 dark:text-paper/50 text-xs">Instructor: ' + l.instructor + '</span>'
+            + '<span class="text-ink/50 dark:text-paper/50 text-xs">' + l.duration + ' · ' + l.vehicle + '</span>'
+            + '<div class="flex items-center gap-1 sm:ml-auto">'
+              + '<button onclick="editLesson(' + origIdx + ')" class="w-7 h-7 grid place-items-center rounded-md hover:bg-signal/10 text-ink/30 dark:text-paper/30 hover:text-signal transition-colors" title="Edit">'
+                + '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>'
+              + '</button>'
+              + '<button onclick="deleteLesson(' + origIdx + ')" class="w-7 h-7 grid place-items-center rounded-md hover:bg-clay/10 text-ink/30 dark:text-paper/30 hover:text-clay transition-colors" title="Delete">'
+                + '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>'
+              + '</button>'
+            + '</div>'
+          + '</div>';
+        }).join('')}
+        ${slotLessons.length === 0 ? '<div class="text-xs text-ink/30 dark:text-paper/30 py-3">No lessons</div>' : ''}
+      </div>
+    `;
+    grid.appendChild(slot);
+  });
+}
+
+function getStudents() {
+  var students = JSON.parse(localStorage.getItem('rw_students') || 'null') || [
+    { first:'Sarah', last:'Johnson' },
+    { first:'Michael', last:'Chen' },
+    { first:'Emma', last:'Rodriguez' },
+    { first:'James', last:'Wilson' },
+    { first:'Aisha', last:'Patel' },
+    { first:'David', last:'Kim' },
+  ];
+  return students.map(s => s.first + ' ' + s.last);
+}
+
+function populateStudentSelect() {
+  var sel = document.getElementById('formStudent');
+  var current = sel.value;
+  var students = getStudents();
+  sel.innerHTML = '<option value="">Select student</option>'
+    + students.map(s => '<option' + (s === current ? ' selected' : '') + '>' + s + '</option>').join('');
+}
+
+function populateDateSelect() {
+  var dateInput = document.getElementById('formDate');
+  if (!dateInput.value) {
+    var now = new Date();
+    dateInput.value = now.toISOString().split('T')[0];
+  }
+}
+
+function openModal(mode, idx) {
+  editingId = mode === 'edit' ? idx : null;
+  var title = mode === 'edit' ? 'Edit Lesson' : 'Add Lesson';
+  document.querySelector('#addLessonModal h2').textContent = title;
+  document.querySelector('#addLessonModal button[type="submit"]').textContent = mode === 'edit' ? 'Update Lesson' : 'Save Lesson';
+
+  if (mode === 'edit') {
+    var l = scheduleData[activeDay][idx];
+    document.getElementById('formDate').value = l.date || '';
+    document.getElementById('formTime').value = l.time;
+    document.getElementById('formStudent').value = l.student;
+    document.getElementById('formLessonName').value = l.lessonName || '';
+    document.getElementById('formCourse').value = l.course;
+    document.getElementById('formInstructor').value = l.instructor;
+    document.getElementById('formDuration').value = l.duration;
+    document.getElementById('formVehicle').value = l.vehicle;
+    document.getElementById('formNotes').value = l.notes || '';
+  } else {
+    document.getElementById('addLessonForm').reset();
+    populateDateSelect();
+  }
+
+  modal.classList.replace('hidden', 'flex');
+}
+
+function closeModalFn() { modal.classList.replace('flex', 'hidden'); }
+
+function editLesson(idx) { openModal('edit', idx); }
+
+function deleteLesson(idx) {
+  var l = scheduleData[activeDay][idx];
+  if (confirm('Delete "' + l.lessonName + '" for ' + l.student + ' at ' + l.time + '?')) {
+    scheduleData[activeDay].splice(idx, 1);
+    saveSchedule();
+    renderSchedule();
+    showToast('Lesson deleted');
+  }
+}
+
+function showToast(msg) {
+  var toast = document.getElementById('successToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'successToast';
+    toast.className = 'dash-popup success';
+    toast.innerHTML = '<div class="popup-icon"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><span id="toastMessage"></span>';
+    document.body.appendChild(toast);
+  }
+  document.getElementById('toastMessage').textContent = msg;
+  toast.classList.add('show');
+  setTimeout(function(){ toast.classList.remove('show'); }, 3000);
+}
+
+function dateToDay(dateStr) {
+  if (!dateStr) return activeDay;
+  var d = new Date(dateStr + 'T12:00:00');
+  return DAYS[d.getDay()];
+}
+
+document.querySelectorAll('.day-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    activeDay = tab.dataset.day;
+    document.querySelectorAll('.day-tab').forEach(t => {
+      t.className = 'day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-cream text-ink dark:bg-ink-light';
+    });
+    tab.className = 'day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-ink text-paper';
+    renderSchedule();
+  });
+});
+
+document.getElementById('addLessonBtn').addEventListener('click', () => openModal('add'));
+document.getElementById('closeModalBtn').addEventListener('click', closeModalFn);
+document.getElementById('cancelLessonBtn').addEventListener('click', closeModalFn);
+
+document.getElementById('addLessonForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var date = document.getElementById('formDate').value;
+  var time = document.getElementById('formTime').value;
+  var student = document.getElementById('formStudent').value;
+  var lessonName = document.getElementById('formLessonName').value.trim();
+  var course = document.getElementById('formCourse').value;
+  var instructor = document.getElementById('formInstructor').value;
+  var duration = document.getElementById('formDuration').value;
+  var vehicle = document.getElementById('formVehicle').value;
+  var notes = document.getElementById('formNotes').value.trim();
+
+  var targetDay = dateToDay(date);
+
+  // Conflict check: same day + same time
+  var conflict = (scheduleData[targetDay] || []).some(function(l) {
+    return l.time === time && l.student !== student;
+  });
+  if (conflict) {
+    alert('Conflict: Another lesson is already scheduled at ' + time + ' on ' + DAY_LABELS[targetDay] + '.');
+    return;
+  }
+
+  var lesson = { date: date, time: time, student: student, lessonName: lessonName, course: course, instructor: instructor, duration: duration, vehicle: vehicle, notes: notes };
+
+  if (editingId !== null) {
+    scheduleData[activeDay][editingId] = lesson;
+  } else {
+    if (!scheduleData[targetDay]) scheduleData[targetDay] = [];
+    scheduleData[targetDay].push(lesson);
+    scheduleData[targetDay].sort(function(a, b) {
+      return timeSlots.indexOf(a.time) - timeSlots.indexOf(b.time);
+    });
+  }
+
+  saveSchedule();
+  activeDay = targetDay;
+  document.querySelectorAll('.day-tab').forEach(t => {
+    t.className = 'day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-cream text-ink dark:bg-ink-light';
+    if (t.dataset.day === activeDay) t.className = 'day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-ink text-paper';
+  });
+  renderSchedule();
+  closeModalFn();
+  showToast(editingId !== null ? 'Lesson updated' : 'Lesson scheduled');
+  editingId = null;
+});
+
+document.getElementById('closeSuccessBtn').addEventListener('click', () => successPopup.classList.replace('flex', 'hidden'));
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeModalFn(); successPopup.classList.replace('flex', 'hidden'); }
+});
+
+// Auto-select today's day
+document.querySelectorAll('.day-tab').forEach(t => {
+  if (t.dataset.day === activeDay) t.className = 'day-tab px-5 py-2 rounded-lg text-sm font-semibold transition bg-ink text-paper';
+});
+
+populateStudentSelect();
+populateDateSelect();
+renderSchedule();
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instructor Notes | RouteWise</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%2314181F%22/><circle cx=%2212%22 cy=%2212%22 r=%224%22 fill=%22%23FFC53D%22/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="../../assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../shared/dashboard.css">
+</head>
+<body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors" data-page-title="Instructor Notes">
+<div data-dash-overlay class="dash-overlay"></div>
+<div class="dash-layout">
+  <aside data-dash-sidebar class="dash-sidebar"></aside>
+  <div class="dash-main">
+    <header data-dash-topbar class="dash-topbar"></header>
+    <main class="dash-content">
+
+      <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <h1 class="text-2xl font-display font-bold text-ink dark:text-paper mb-1">Instructor Notes</h1>
+          <p class="text-slate-500 dark:text-slate-400">Feedback and tips from your instructors</p>
+        </div>
+        <select id="instructor-filter" onchange="filterNotes()" class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-ink/50 text-ink dark:text-paper font-medium text-sm focus:outline-none focus:ring-2 focus:ring-route/50">
+          <option value="all">All Instructors</option>
+          <option value="david-alvarez">David Alvarez</option>
+          <option value="lena-ortiz">Lena Ortiz</option>
+          <option value="aisha-bello">Aisha Bello</option>
+        </select>
+      </div>
+
+      <div id="notes-list" class="space-y-4"></div>
+
+    </main>
+  </div>
+</div>
+<script src="../shared/sidebar-student.js"></script>
+<script>
+const notes = [
+  {
+    id: "david-alvarez",
+    name: "David Alvarez",
+    initials: "DA",
+    color: "bg-route",
+    date: "Aug 18",
+    focus: "Hill Starts",
+    status: "Skill improved",
+    statusType: "green",
+    text: "Confident on hill starts and clutch control now. Focus next session: reverse parallel parking \u2014 practice the reference points we covered.",
+    skill: "Hill Starts",
+    progress: 88
+  },
+  {
+    id: "lena-ortiz",
+    name: "Lena Ortiz",
+    initials: "LO",
+    color: "bg-signal",
+    date: "Aug 14",
+    focus: "Night Driving",
+    status: "Needs practice",
+    statusType: "gold",
+    text: "Good headlight discipline and following distance in low light. Slightly hesitant merging onto the highway ramp \u2014 we\u2019ll revisit this Friday.",
+    skill: "Night Driving",
+    progress: 72
+  },
+  {
+    id: "david-alvarez",
+    name: "David Alvarez",
+    initials: "DA",
+    color: "bg-route",
+    date: "Aug 10",
+    focus: "Highway Merging",
+    status: "Skill improved",
+    statusType: "green",
+    text: "Solid mirror checks before merging. Ready to move on to more complex interchange scenarios next lesson.",
+    skill: "Highway",
+    progress: 58
+  },
+  {
+    id: "aisha-bello",
+    name: "Aisha Bello",
+    initials: "AB",
+    color: "bg-clay",
+    date: "Aug 7",
+    focus: "Basic Maneuvers",
+    status: "Needs practice",
+    statusType: "gold",
+    text: "Good steering control and mirror awareness. Should practice parking in tighter spaces.",
+    skill: "Parking",
+    progress: 65
+  },
+  {
+    id: "david-alvarez",
+    name: "David Alvarez",
+    initials: "DA",
+    color: "bg-route",
+    date: "Aug 4",
+    focus: "Intersection Turns",
+    status: "Skill improved",
+    statusType: "green",
+    text: "Excellent observation at junctions. Natural ability to judge gaps in traffic.",
+    skill: "Road Rules",
+    progress: 95
+  }
+];
+
+function getProgressBarColor(pct) {
+  if (pct >= 80) return "bg-route";
+  if (pct >= 60) return "bg-signal";
+  return "bg-clay";
+}
+
+function getStatusClasses(type) {
+  if (type === "green") return "bg-route/10 text-route";
+  return "bg-signal/10 text-signal";
+}
+
+function renderNotes(filter) {
+  const list = document.getElementById("notes-list");
+  const filtered = filter === "all" ? notes : notes.filter(n => n.id === filter);
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="text-center py-12 text-slate-400">No notes from this instructor.</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(n => {
+    return '<div class="bg-white dark:bg-ink/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">' +
+      '<div class="flex items-start gap-4 mb-4">' +
+        '<div class="w-10 h-10 rounded-full ' + n.color + ' flex items-center justify-center text-white text-sm font-bold shrink-0">' + n.initials + '</div>' +
+        '<div class="flex-1 min-w-0">' +
+          '<div class="flex items-center justify-between gap-2 flex-wrap">' +
+            '<p class="font-semibold text-ink dark:text-paper">' + n.name + '</p>' +
+            '<span class="text-sm text-slate-400">' + n.date + '</span>' +
+          '</div>' +
+          '<div class="flex items-center gap-2 mt-1 flex-wrap">' +
+            '<span class="inline-block px-2.5 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300">' + n.focus + '</span>' +
+            '<span class="inline-block px-2.5 py-0.5 rounded-lg text-xs font-medium ' + getStatusClasses(n.statusType) + '">' + n.status + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<p class="text-slate-600 dark:text-slate-300 mb-5 leading-relaxed">' + n.text + '</p>' +
+      '<div>' +
+        '<div class="flex items-center justify-between mb-1.5">' +
+          '<span class="text-sm font-medium text-slate-500 dark:text-slate-400">' + n.skill + '</span>' +
+          '<span class="text-sm font-bold text-ink dark:text-paper">' + n.progress + '%</span>' +
+        '</div>' +
+        '<div class="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">' +
+          '<div class="h-full rounded-full transition-all duration-500 ' + getProgressBarColor(n.progress) + '" style="width:' + n.progress + '%"></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join("");
+}
+
+function filterNotes() {
+  const val = document.getElementById("instructor-filter").value;
+  renderNotes(val);
+}
+
+renderNotes("all");
+</script>
+</body>
+</html>
