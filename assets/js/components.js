@@ -40,12 +40,12 @@
 
   const html = `
   <header class="fixed top-0 left-0 right-0 z-40 bg-ink/90 backdrop-blur border-b border-paper/10 transition-shadow">
-    <div class="max-w-7xl mx-auto px-5 lg:px-8 h-18 flex items-center justify-between py-3">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 flex items-center justify-between py-2">
       <a href="index.html" class="flex items-center gap-2 shrink-0">
-        <span class="w-9 h-9 rounded-md bg-white grid place-items-center">
-          <span class="w-2.5 h-2.5 rounded-full bg-signal"></span>
+        <span class="w-8 h-8 rounded-md bg-white grid place-items-center">
+          <span class="w-2 h-2 rounded-full bg-signal"></span>
         </span>
-        <span class="font-display font-bold text-lg tracking-tight text-paper">RouteWise</span>
+        <span class="font-display font-semibold text-lg tracking-tight text-paper">RouteWise</span>
       </a>
 
       <nav class="hidden lg:flex items-center gap-7 text-sm" aria-label="Primary">
@@ -67,7 +67,7 @@
       </nav>
 
       <div class="flex items-center gap-2">
-        <a href="login.html" class="hidden md:inline-block text-sm font-semibold text-paper/70 hover:text-paper px-3 py-2">Log in</a>
+        <a href="login.html" class="hidden md:inline-flex items-center gap-1.5 bg-signal hover:bg-signal-600 text-ink font-semibold text-sm px-4 py-2.5 rounded-full transition-colors">Log in</a>
         <a href="contact.html" class="hidden sm:inline-flex items-center gap-1.5 bg-signal hover:bg-signal-600 text-ink font-semibold text-sm px-4 py-2.5 rounded-full transition-colors">Book a Lesson</a>
         <button data-menu-toggle aria-expanded="false" class="lg:hidden w-9 h-9 grid place-items-center rounded-full border border-paper/20 text-paper" aria-label="Open menu">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -87,11 +87,11 @@
       <a href="student-dashboard.html" class="block font-semibold text-paper/80 hover:text-paper">Student login</a>
     </div>
   </header>
-  <div class="fixed top-4 right-4 z-50 flex items-center gap-2 [dir=rtl_&]:right-auto [dir=rtl_&]:left-4">
+  <div class="fixed top-16 right-4 z-50 lg:top-4 flex items-center gap-2 [dir=rtl_&]:right-auto [dir=rtl_&]:left-4">
     <button data-theme-toggle aria-pressed="false" class="w-9 h-9 grid place-items-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-sm hover:bg-paper/10 text-paper transition-colors" aria-label="Toggle dark mode">
       ${sunIcon()}${moonIcon()}
     </button>
-    <button data-dir-toggle class="w-9 h-9 grid place-items-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-sm hover:bg-paper/10 text-paper transition-colors" aria-label="Toggle Arabic/RTL layout"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <button data-dir-toggle class="w-9 h-9 grid place-items-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-sm hover:bg-paper/10 text-paper transition-colors" aria-label="Toggle Arabic/RTL layout"><span class="text-[10px] font-bold tracking-wide">RTL</span></button>
   </div>
   <div class="content-particles" aria-hidden="true">
     <span></span><span></span><span></span><span></span>
@@ -112,7 +112,7 @@
         <div class="flex flex-wrap gap-3 mt-5">
           <a href="#" aria-label="Facebook" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">facebook</a>
           <a href="#" aria-label="Instagram" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">instagram</a>
-          <a href="#" aria-label="Twitter / X" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">twitter</a>
+          <a href="#" aria-label="Twitter" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">twitter</a>
           <a href="#" aria-label="YouTube" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">youtube</a>
         </div>
       </div>
@@ -171,7 +171,7 @@
 
   function mount() {
     const navEl = document.getElementById('navbar-mount');
-    if (navEl) navEl.innerHTML = '<div class="h-[80px]"></div>' + html;
+    if (navEl) navEl.innerHTML = '<div class="h-[56px]"></div>' + html;
 
     const footerEl = document.getElementById('footer-mount');
     if (footerEl) footerEl.innerHTML = footerHtml;

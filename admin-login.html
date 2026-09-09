@@ -12,21 +12,21 @@
 <body class="font-body bg-paper text-ink dark:bg-ink dark:text-paper transition-colors min-h-screen flex flex-col">
 
 <div class="auth-toggles fixed top-0 right-0 z-40 flex items-center gap-2 p-5">
-    <button data-theme-toggle aria-pressed="false" class="w-9 h-9 grid place-items-center rounded-full border border-white/30 bg-ink hover:bg-ink/80 text-white transition-colors" aria-label="Toggle dark mode">
+    <button data-theme-toggle aria-pressed="false" class="w-9 h-9 grid place-items-center rounded-full border border-white/30 bg-ink hover:bg-ink/80 text-white transition-colors dark:bg-white/10 dark:border-white/40" aria-label="Toggle dark mode">
       <svg data-icon-sun class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       <svg data-icon-moon class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
-    <button data-dir-toggle class="w-9 h-9 grid place-items-center rounded-full border border-white/30 bg-ink hover:bg-ink/80 text-white transition-colors" aria-label="Toggle Arabic/RTL layout"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <button data-dir-toggle class="w-9 h-9 grid place-items-center rounded-full border border-white/30 bg-ink hover:bg-ink/80 text-white transition-colors dark:bg-white/10 dark:border-white/40" aria-label="Toggle Arabic/RTL layout"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
 </div>
 
 <main class="flex-1 flex items-center justify-center px-5 py-24">
   <div class="neu-card w-full max-w-md p-10">
     <div class="text-center mb-8 -mx-10 -mt-10 px-10 pt-8 pb-6 rounded-t-2xl bg-ink dark:bg-paper/10">
-      <div class="flex items-center justify-center gap-2.5 mb-4">
+      <a href="index.html" class="flex items-center justify-center gap-2.5 mb-4 transition-transform hover:scale-[1.03]" aria-label="RouteWise home">
         <span class="w-10 h-10 rounded-lg bg-white grid place-items-center"><span class="w-3 h-3 rounded-full bg-signal"></span></span>
-        <span class="font-display font-bold text-xl tracking-tight text-paper">RouteWise</span>
-      </div>
-      <h1 class="font-display font-bold text-2xl text-paper">Admin sign in</h1>
+        <span class="font-display font-medium text-xl tracking-tight text-paper">RouteWise</span>
+      </a>
+      <h1 class="font-display font-semibold text-2xl text-paper">Admin sign in</h1>
       <p class="text-sm text-paper/50 mt-1">Access the business dashboard</p>
     </div>
 
@@ -36,25 +36,29 @@
 
     <form id="admin-form" class="space-y-5">
       <div>
-        <label for="a-email" class="block text-sm font-semibold mb-1.5">Work email</label>
+        <label for="a-email" class="block text-sm font-semibold mb-1.5 dark:text-paper">Work email</label>
         <input id="a-email" type="email" required autocomplete="email" class="w-full rounded-xl border border-ink/15 dark:border-paper/20 bg-transparent px-4 py-2.5 text-sm focus:outline-none focus:border-signal">
       </div>
       <div>
-        <label for="a-pass" class="block text-sm font-semibold mb-1.5">Password</label>
+        <label for="a-pass" class="block text-sm font-semibold mb-1.5 dark:text-paper">Password</label>
         <input id="a-pass" type="password" required autocomplete="current-password" class="w-full rounded-xl border border-ink/15 dark:border-paper/20 bg-transparent px-4 py-2.5 text-sm focus:outline-none focus:border-signal">
       </div>
       <div class="flex items-center justify-between text-sm">
         <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="peer sr-only"><span class="w-4 h-4 rounded border border-ink/30 dark:border-paper/30 grid place-items-center peer-checked:bg-signal peer-checked:border-signal transition-colors"><svg class="w-3 h-3 text-paper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span> Remember me</label>
-        <a href="#" id="admin-forgot-password-link" class="font-semibold underline underline-offset-4">Forgot password?</a>
+        <a href="#" id="admin-forgot-password-link" class="font-semibold text-signal-600 dark:text-signal no-underline">Forgot password?</a>
       </div>
       <div class="flex flex-col items-start gap-3">
-        <button type="button" id="admin-google-signin-btn" class="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl border border-signal/20 bg-white dark:bg-ink/5 text-sm font-medium text-ink hover:bg-signal hover:text-ink/90 transition-colors" aria-label="Sign in with Google">
+        <button type="button" id="admin-google-signin-btn" class="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl border border-signal/20 bg-white dark:bg-ink/5 text-sm font-medium text-ink dark:text-paper hover:bg-signal hover:text-ink/90 transition-colors" aria-label="Sign in with Google">
           <svg class="w-4 h-4" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
           Continue with Google
         </button>
         <button type="button" id="admin-facebook-signin-btn" class="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl text-white text-sm font-medium hover:opacity-90 transition-colors" style="background-color:#1877F2;" aria-label="Sign in with Facebook">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           Continue with Facebook
+        </button>
+        <button type="button" id="admin-apple-signin-btn" class="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl border border-ink/10 dark:border-paper/20 bg-ink/[0.03] dark:bg-paper/[0.04] text-sm font-medium text-ink dark:text-paper hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors" aria-label="Sign in with Apple">
+          <svg class="w-4 h-4" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.7-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          Continue with Apple
         </button>
       </div>
       <button type="submit" class="w-full bg-ink dark:bg-paper text-paper dark:text-ink font-semibold px-5 py-3 rounded-full hover:opacity-90 transition-opacity mt-4">Sign in to dashboard</button>
@@ -63,7 +67,7 @@
     <div id="admin-forgot-password-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/70 backdrop-blur-sm">
       <div class="bg-white dark:bg-ink rounded-xl p-8 max-w-md mx-4 transform scale-95 opacity-0 transition-all duration-300" id="admin-fp-modal-content">
         <div class="flex items-center justify-between mb-6">
-          <h2 class="font-display font-bold text-2xl text-paper">Forgot Password</h2>
+          <h2 class="font-display font-semibold text-2xl text-paper">Forgot Password</h2>
           <button id="admin-close-fp-modal" class="w-8 h-8 rounded-full bg-ink/10 dark:bg-paper/10 p-2 hover:bg-ink/20 transition-colors" aria-label="Close"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
         </div>
         <div class="space-y-5">
@@ -171,8 +175,8 @@
     if (!popup) { showToast('Please allow popups for Facebook login', 'error'); return; }
     popup.document.write('<!DOCTYPE html><html><head><title>Facebook Login</title>' +
       '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%231877F2%22/><text x=%227%22 y=%2219%22 font-size=%2216%22 fill=%22white%22 font-weight=%22bold%22>f</text></svg>">' +
-      '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">' +
-      '<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,sans-serif;background:#f0f2f5;display:flex;justify-content:center;align-items:center;min-height:100vh}.login-box{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1),0 8px 16px rgba(0,0,0,.1);padding:32px;width:396px;text-align:center}.fb-icon{width:40px;height:40px;background:#1877F2;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}.fb-icon span{color:#fff;font-size:24px;font-weight:700;line-height:1}.subtitle{color:#1c1e21;font-size:17px;font-weight:600;margin-bottom:20px}.input{width:100%;padding:14px 16px;border:1px solid #dddfe2;border-radius:6px;font-size:17px;margin-bottom:12px;outline:none;transition:border .2s}.input:focus{border-color:#1877F2;box-shadow:0 0 0 2px #e7f3ff}.btn-login{width:100%;padding:12px;background:#1877F2;color:#fff;border:none;border-radius:6px;font-size:20px;font-weight:700;cursor:pointer;margin-top:8px;transition:background .2s}.btn-login:hover{background:#166fe5}.forgot{color:#1877F2;font-size:14px;text-decoration:none;display:inline-block;margin-top:16px;cursor:pointer}.forgot:hover{text-decoration:underline}.divider{border-top:1px solid #dadde1;margin:20px 0}.create-btn{display:inline-block;padding:12px 24px;background:#42b72a;color:#fff;border:none;border-radius:6px;font-size:17px;font-weight:700;cursor:pointer;margin-top:8px;transition:background .2s}.create-btn:hover{background:#36a420}</style></head><body>' +
+      '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">' +
+      '<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:DM Sans,sans-serif;background:#f0f2f5;display:flex;justify-content:center;align-items:center;min-height:100vh}.login-box{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1),0 8px 16px rgba(0,0,0,.1);padding:32px;width:396px;text-align:center}.fb-icon{width:40px;height:40px;background:#1877F2;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}.fb-icon span{color:#fff;font-size:24px;font-weight:700;line-height:1}.subtitle{color:#1c1e21;font-size:17px;font-weight:600;margin-bottom:20px}.input{width:100%;padding:14px 16px;border:1px solid #dddfe2;border-radius:6px;font-size:17px;margin-bottom:12px;outline:none;transition:border .2s}.input:focus{border-color:#1877F2;box-shadow:0 0 0 2px #e7f3ff}.btn-login{width:100%;padding:12px;background:#1877F2;color:#fff;border:none;border-radius:6px;font-size:20px;font-weight:700;cursor:pointer;margin-top:8px;transition:background .2s}.btn-login:hover{background:#166fe5}.forgot{color:#1877F2;font-size:14px;text-decoration:none;display:inline-block;margin-top:16px;cursor:pointer}.forgot:hover{text-decoration:underline}.divider{border-top:1px solid #dadde1;margin:20px 0}.create-btn{display:inline-block;padding:12px 24px;background:#42b72a;color:#fff;border:none;border-radius:6px;font-size:17px;font-weight:700;cursor:pointer;margin-top:8px;transition:background .2s}.create-btn:hover{background:#36a420}</style></head><body>' +
       '<div class="login-box">' +
       '<div class="fb-icon"><span>f</span></div>' +
       '<div class="subtitle">Log into Facebook</div>' +
@@ -224,8 +228,8 @@
     if (!popup) { showToast('Please allow popups for Google login', 'error'); return; }
     popup.document.write('<!DOCTYPE html><html><head><title>Google Sign-In</title>' +
       '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 48%22><path fill=%22%23EA4335%22 d=%22M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill=%22%234285F4%22 d=%22M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill=%22%23FBBC05%22 d=%22M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill=%22%2334A853%22 d=%22M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>' +
-      '<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">' +
-      '<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Google Sans,Inter,sans-serif;background:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}.g-box{width:400px;padding:48px 40px;text-align:center}.g-logo{width:75px;height:75px;margin:0 auto 16px}.g-title{font-size:24px;font-weight:400;color:#202124;margin-bottom:8px}.g-sub{font-size:16px;color:#5f6368;margin-bottom:32px}.g-input{width:100%;padding:13px 15px;border:1px solid #dadce0;border-radius:4px;font-size:16px;color:#202124;outline:none;transition:border .2s,box-shadow .2s;margin-bottom:24px}.g-input:focus{border-color:#1a73e8;box-shadow:0 1px 6px rgba(26,115,232,.2)}.g-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.g-link{color:#1a73e8;font-size:14px;font-weight:500;text-decoration:none;cursor:pointer}.g-link:hover{text-decoration:underline}.g-btn{padding:10px 24px;background:#1a73e8;color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s,box-shadow .2s}.g-btn:hover{background:#1765cc;box-shadow:0 1px 3px rgba(0,0,0,.2)}.g-create{margin-top:40px;padding-top:24px;border-top:1px solid #e0e0e0}.g-create a{color:#1a73e8;font-size:14px;font-weight:500;text-decoration:none;cursor:pointer}.g-create a:hover{text-decoration:underline}</style></head><body>' +
+      '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">' +
+      '<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:DM Sans,sans-serif;background:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}.g-box{width:400px;padding:48px 40px;text-align:center}.g-logo{width:75px;height:75px;margin:0 auto 16px}.g-title{font-size:24px;font-weight:400;color:#202124;margin-bottom:8px}.g-sub{font-size:16px;color:#5f6368;margin-bottom:32px}.g-input{width:100%;padding:13px 15px;border:1px solid #dadce0;border-radius:4px;font-size:16px;color:#202124;outline:none;transition:border .2s,box-shadow .2s;margin-bottom:24px}.g-input:focus{border-color:#1a73e8;box-shadow:0 1px 6px rgba(26,115,232,.2)}.g-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.g-link{color:#1a73e8;font-size:14px;font-weight:500;text-decoration:none;cursor:pointer}.g-link:hover{text-decoration:underline}.g-btn{padding:10px 24px;background:#1a73e8;color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s,box-shadow .2s}.g-btn:hover{background:#1765cc;box-shadow:0 1px 3px rgba(0,0,0,.2)}.g-create{margin-top:40px;padding-top:24px;border-top:1px solid #e0e0e0}.g-create a{color:#1a73e8;font-size:14px;font-weight:500;text-decoration:none;cursor:pointer}.g-create a:hover{text-decoration:underline}</style></head><body>' +
       '<div class="g-box">' +
       '<svg class="g-logo" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>' +
       '<div class="g-title">Sign in</div>' +
@@ -269,6 +273,48 @@
     });
   }
 
+  // Apple OAuth popup helper (admin)
+  function openApplePopupAdmin() {
+    var popup = window.open('', 'apple_login', 'width=500,height=600,top=100,left=100,scrollbars=no,resizable=no');
+    if (!popup) { showToast('Please allow popups for Apple login', 'error'); return; }
+    popup.document.write('<!DOCTYPE html><html><head><title>Sign in with Apple</title>' +
+      '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">' +
+      '<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:DM Sans,sans-serif;background:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}.a-box{width:400px;padding:48px 40px;text-align:center}.a-logo{width:60px;height:60px;background:#000;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#fff}.a-logo svg{width:26px;height:26px;fill:currentColor}.a-title{font-size:22px;font-weight:700;color:#161617;margin-bottom:6px}.a-sub{font-size:15px;color:#5f6368;margin-bottom:28px}.a-input{width:100%;padding:13px 15px;border:1px solid #d2d2d7;border-radius:12px;font-size:16px;color:#161617;outline:none;transition:border .2s;margin-bottom:20px}.a-input:focus{border-color:#0071e3;box-shadow:0 1px 6px rgba(0,113,227,.2)}.a-btn{width:100%;padding:12px;background:#161617;color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s}.a-btn:hover{background:#000}</style></head><body>' +
+      '<div class="a-box">' +
+      '<div class="a-logo"><svg viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.7-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></div>' +
+      '<div class="a-title">Sign in with Apple</div>' +
+      '<div class="a-sub">Enter the email for your Apple ID</div>' +
+      '<input type="email" class="a-input" id="a-email" placeholder="name@example.com">' +
+      '<button class="a-btn" id="a-submit">Continue</button>' +
+      '</div>' +
+      '<script>' +
+      'document.getElementById("a-submit").addEventListener("click",function(){' +
+      '  var e=document.getElementById("a-email").value.trim();' +
+      '  if(!e){document.getElementById("a-email").style.borderColor="#d93025";return;}' +
+      '  window.opener.postMessage({source:"apple-auth",email:e,name:"Apple User",password:"apple123"},"*");' +
+      '  window.close();' +
+      '});' +
+      '<\/script></body></html>');
+    popup.document.close();
+    window.addEventListener('message', function handler(e) {
+      if (e.data && e.data.source === 'apple-auth') {
+        window.removeEventListener('message', handler);
+        var admins = JSON.parse(localStorage.getItem('rw_admins') || '[]');
+        var existing = admins.find(function(a) { return a.email === e.data.email; });
+        if (existing) {
+          localStorage.setItem('rw_session', JSON.stringify({ email: existing.email, name: existing.name, role: 'admin' }));
+          showToast('Logged in with Apple: ' + existing.name, 'success');
+        } else {
+          admins.push({ email: e.data.email, password: 'apple123', name: 'Apple Admin', school: 'RouteWise Online', role: 'admin' });
+          localStorage.setItem('rw_admins', JSON.stringify(admins));
+          localStorage.setItem('rw_session', JSON.stringify({ email: e.data.email, name: 'Apple Admin', role: 'admin' }));
+          showToast('Apple admin account created and logged in', 'success');
+        }
+        setTimeout(function() { window.location.href = 'dashboard/admin/admin-overview.html'; }, 1500);
+      }
+    });
+  }
+
   // Google Sign-In — opens popup
   document.getElementById('admin-google-signin-btn').addEventListener('click', function() {
     openGooglePopupAdmin();
@@ -277,6 +323,11 @@
   // Facebook Sign-In — opens popup
   document.getElementById('admin-facebook-signin-btn').addEventListener('click', function() {
     openFacebookPopupAdmin();
+  });
+
+  // Apple Sign-In — opens popup
+  document.getElementById('admin-apple-signin-btn').addEventListener('click', function() {
+    openApplePopupAdmin();
   });
 
   // Original admin form handler

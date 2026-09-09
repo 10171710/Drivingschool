@@ -13,7 +13,7 @@ tailwind.config = {
       },
       fontFamily: {
         display: ['"DM Sans"', 'sans-serif'],
-        body: ['"Inter"', 'sans-serif'],
+        body: ['"DM Sans"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace']
       },
       boxShadow: {

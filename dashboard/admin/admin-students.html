@@ -79,7 +79,7 @@
 <div class="dash-modal-overlay" id="studentModal">
   <div class="dash-modal">
     <div class="dash-modal-header">
-      <h3 class="font-display font-bold text-lg" id="modalTitle">Add Student</h3>
+      <h3 class="font-display font-medium text-lg" id="modalTitle">Add Student</h3>
       <button onclick="closeStudentModal()" class="w-8 h-8 grid place-items-center rounded-full hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -140,7 +140,7 @@
 <div class="dash-modal-overlay" id="deleteModal">
   <div class="dash-modal max-w-sm">
     <div class="dash-modal-header">
-      <h3 class="font-display font-bold text-lg">Delete Student</h3>
+      <h3 class="font-display font-medium text-lg">Delete Student</h3>
       <button onclick="closeDeleteModal()" class="w-8 h-8 grid place-items-center rounded-full hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -230,7 +230,7 @@
       var origIdx = students.indexOf(s);
       html += '<tr>'
         + '<td><div class="flex items-center gap-3">'
-          + '<span class="w-9 h-9 rounded-full ' + avatarColor(s.first) + ' grid place-items-center font-display font-bold text-xs shrink-0">' + initials(s.first, s.last) + '</span>'
+          + '<span class="w-9 h-9 rounded-full ' + avatarColor(s.first) + ' grid place-items-center font-display font-semibold text-xs shrink-0">' + initials(s.first, s.last) + '</span>'
           + '<span class="font-semibold">' + s.first + ' ' + s.last + '</span>'
         + '</div></td>'
         + '<td class="text-sm text-ink/50 dark:text-paper/50">' + s.email + '</td>'

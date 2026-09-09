@@ -21,7 +21,7 @@
       <div id="quiz-header" class="bg-white dark:bg-ink/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-8 mb-6">
         <div class="flex items-start justify-between flex-wrap gap-4">
           <div>
-            <h1 class="text-2xl font-display font-bold text-ink dark:text-paper mb-1">Mock Theory Test</h1>
+            <h1 class="text-2xl font-display font-semibold text-ink dark:text-paper mb-1">Mock Theory Test</h1>
             <p class="text-slate-500 dark:text-slate-400">5 questions &middot; Pass mark: 70%</p>
           </div>
           <button id="start-btn" onclick="startQuiz()" class="px-6 py-3 bg-route text-white font-semibold rounded-xl hover:bg-route/90 transition-colors">
@@ -43,7 +43,7 @@
 
         <div id="question-card" class="bg-white dark:bg-ink/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-8">
           <p id="question-number" class="text-sm font-medium text-route mb-2">Question 1</p>
-          <h2 id="question-text" class="text-lg font-display font-bold text-ink dark:text-paper mb-6"></h2>
+          <h2 id="question-text" class="text-lg font-display font-semibold text-ink dark:text-paper mb-6"></h2>
           <div id="options" class="space-y-3"></div>
           <button id="next-btn" onclick="nextQuestion()" disabled class="mt-6 px-6 py-3 bg-ink dark:bg-paper text-paper dark:text-ink font-semibold rounded-xl opacity-40 cursor-not-allowed transition-all">
             Next
@@ -53,9 +53,9 @@
 
       <div id="results-card" class="hidden bg-white dark:bg-ink/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-8">
         <div class="text-center mb-8">
-          <p id="result-score" class="text-5xl font-display font-bold mb-2"></p>
+          <p id="result-score" class="text-5xl font-display font-semibold mb-2"></p>
           <p id="result-pct" class="text-lg text-slate-500 dark:text-slate-400 mb-3"></p>
-          <p id="result-msg" class="text-xl font-display font-bold"></p>
+          <p id="result-msg" class="text-xl font-display font-semibold"></p>
         </div>
         <div id="breakdown" class="space-y-3 mb-8"></div>
         <div class="flex flex-wrap gap-3 justify-center">
@@ -146,15 +146,15 @@ function showResults() {
   const passed = pct >= 70;
 
   document.getElementById("result-score").textContent = score + "/5";
-  document.getElementById("result-score").className = "text-5xl font-display font-bold mb-2 " + (passed ? "text-route" : "text-clay");
+  document.getElementById("result-score").className = "text-5xl font-display font-semibold mb-2 " + (passed ? "text-route" : "text-clay");
   document.getElementById("result-pct").textContent = pct + "%";
   const msg = document.getElementById("result-msg");
   if (passed) {
     msg.textContent = "You Passed!";
-    msg.className = "text-xl font-display font-bold text-route";
+    msg.className = "text-xl font-display font-semibold text-route";
   } else {
     msg.textContent = "Keep Practicing!";
-    msg.className = "text-xl font-display font-bold text-clay";
+    msg.className = "text-xl font-display font-semibold text-clay";
   }
 
   const bd = document.getElementById("breakdown");

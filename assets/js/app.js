@@ -59,9 +59,7 @@
     root.setAttribute('lang', next === 'rtl' ? 'ar' : 'en');
     localStorage.setItem('dir', next);
     document.querySelectorAll('[data-dir-toggle]').forEach(b => {
-      b.innerHTML = next === 'rtl'
-        ? '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 18l-6-6 6-6"/></svg>'
-        : '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>';
+      b.innerHTML = next === 'ltr' ? '<span class="text-[10px] font-bold tracking-wide">RTL</span>' : '<span class="text-[10px] font-bold tracking-wide">LTR</span>';
       b.setAttribute('aria-label', next === 'rtl' ? 'Switch to left-to-right layout' : 'Switch to right-to-left layout');
     });
     fixPeriods();
@@ -73,7 +71,7 @@
     const currentDir = root.getAttribute('dir') || 'ltr';
     if (currentDir === 'rtl') {
       document.querySelectorAll('[data-dir-toggle]').forEach(b => {
-        b.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 18l-6-6 6-6"/></svg>';
+        b.innerHTML = '<span class="text-[10px] font-bold tracking-wide">LTR</span>';
         b.setAttribute('aria-label', 'Switch to left-to-right layout');
       });
     }
@@ -402,5 +400,42 @@
       popup.classList.remove('hidden');
       form.reset();
     });
+  });
+// Legal modals (Privacy Policy / Terms of Service)
+  const legalContent = {
+    privacy: {
+      title: 'Privacy Policy',
+      body: '<p class="mb-4">Last updated: September 2026</p><p class="mb-4">RouteWise ("we", "us", "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website and use our driving-school services.</p><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Information We Collect</h4><ul class="list-disc pl-5 space-y-1 text-ink/70 dark:text-paper/70 mb-4"><li>Name, email, phone number and address when you register or book a lesson.</li><li>Payment details processed securely through our payment provider — we never store card numbers.</li><li>Lesson hours, progress data and instructor feedback recorded during your training.</li><li>Usage data (pages visited, device type) collected automatically via cookies.</li></ul><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">How We Use Your Information</h4><ul class="list-disc pl-5 space-y-1 text-ink/70 dark:text-paper/70 mb-4"><li>To schedule and deliver driving lessons and track your progress.</li><li>To send booking confirmations, reminders and course updates.</li><li>To improve our website, curriculum and student experience.</li><li>To comply with legal obligations and resolve disputes.</li></ul><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Data Sharing</h4><p class="mb-4">We do not sell your personal data. We share information only with trusted service providers (payment processing, email delivery) bound by confidentiality agreements, and when required by law.</p><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Your Rights</h4><p class="mb-4">You may request access to, correction of, or deletion of your personal data at any time by emailing <span class="text-signal">privacy@routewise.com</span>. We will respond within 30 days.</p><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Contact</h4><p>For questions about this policy, contact us at <span class="text-signal">privacy@routewise.com</span>.</p>'
+    },
+    terms: {
+      title: 'Terms of Service',
+      body: '<p class="mb-4">Last updated: September 2026</p><p class="mb-4">By accessing the RouteWise website and booking our driving-school services, you agree to these Terms of Service.</p><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Eligibility</h4><p class="mb-4">You must be at least 15 years old to enrol in a RouteWise course. Learner\'s permit applicants must meet the minimum age and documentation requirements of their state or country.</p><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Booking &amp; Payment</h4><ul class="list-disc pl-5 space-y-1 text-ink/70 dark:text-paper/70 mb-4"><li>Lessons are confirmed only after payment is received in full.</li><li>Cancellations made 24+ hours before the session receive a full refund.</li><li>Late cancellations (under 24 hours) are non-refundable but may be rescheduled once.</li><li>No-shows are charged in full and forfeit the session.</li></ul><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Lesson Conduct</h4><p class="mb-4">Students must hold a valid learner\'s permit (where applicable) and follow all instructor directions. RouteWise reserves the right to suspend a student who behaves unsafely or disruptively, without refund.</p><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Dashboard &amp; Data</h4><p class="mb-4">Your learning dashboard, including logged hours and instructor feedback, is provided for informational purposes only. It does not constitute a guarantee of licence issuance — final testing is governed by your local licensing authority.</p><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Limitation of Liability</h4><p class="mb-4">RouteWise\'s total liability for any claim shall not exceed the amount paid for the specific lesson or course giving rise to the claim. We are not liable for indirect, incidental or consequential damages.</p><h4 class="font-display font-semibold text-ink dark:text-paper mt-6 mb-2">Contact</h4><p>For questions about these terms, contact us at <span class="text-signal">legal@routewise.com</span>.</p>'
+    }
+  };
+
+  function ensureLegalModal() {
+    let modal = document.getElementById('legal-modal');
+    if (modal) return modal;
+    modal = document.createElement('div');
+    modal.id = 'legal-modal';
+    modal.className = 'hidden fixed inset-0 z-[9999] grid place-items-center bg-ink/60 backdrop-blur-sm p-5';
+    modal.innerHTML = '<div class="bg-paper dark:bg-ink rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col relative"><div class="flex items-center justify-between px-8 pt-6 pb-4 border-b border-ink/10 dark:border-paper/10 shrink-0"><h2 id="legal-title" class="font-display font-semibold text-xl text-ink dark:text-paper"></h2><button type="button" data-legal-close class="w-8 h-8 rounded-full hover:bg-ink/10 dark:hover:bg-paper/10 grid place-items-center text-ink/50 dark:text-paper/50 shrink-0" aria-label="Close">&times;</button></div><div id="legal-body" class="px-8 py-6 overflow-y-auto text-sm text-ink/70 dark:text-paper/70 leading-relaxed"></div><div class="px-8 py-4 border-t border-ink/10 dark:border-paper/10 shrink-0"><button type="button" data-legal-close class="bg-signal hover:bg-signal-600 text-ink font-semibold text-sm px-6 py-2.5 rounded-full transition-colors">Got it</button></div></div>';
+    document.body.appendChild(modal);
+    modal.addEventListener('click', (e) => { if (e.target === modal || e.target.closest('[data-legal-close]')) modal.classList.add('hidden'); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) modal.classList.add('hidden'); });
+    return modal;
+  }
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest && e.target.closest('a[data-legal]');
+    if (!link) return;
+    e.preventDefault();
+    const key = link.getAttribute('data-legal');
+    const content = legalContent[key];
+    if (!content) return;
+    const modal = ensureLegalModal();
+    modal.querySelector('#legal-title').textContent = content.title;
+    modal.querySelector('#legal-body').innerHTML = content.body;
+    modal.classList.remove('hidden');
   });
 })();

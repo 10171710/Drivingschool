@@ -50,7 +50,7 @@
       <div id="deleteModal" class="dash-modal-overlay">
         <div class="dash-modal">
           <div class="dash-modal-header">
-            <h3 class="font-display font-bold text-lg">Delete Account</h3>
+            <h3 class="font-display font-medium text-lg">Delete Account</h3>
             <button onclick="closeDeleteModal()" class="w-8 h-8 grid place-items-center rounded-lg hover:bg-ink/10 dark:hover:bg-paper/10 transition-colors">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
@@ -65,9 +65,9 @@
 
       <!-- Profile Settings -->
       <div class="neu-card p-6 mb-5">
-        <h2 class="font-display font-bold text-lg mb-5">Profile Settings</h2>
+        <h2 class="font-display font-medium text-lg mb-5">Profile Settings</h2>
         <div class="flex items-center gap-4 mb-6">
-          <div id="ad-avatar" class="w-16 h-16 rounded-full bg-signal/15 text-signal grid place-items-center font-display font-bold text-xl shrink-0">--</div>
+          <div id="ad-avatar" class="w-16 h-16 rounded-full bg-signal/15 text-signal grid place-items-center font-display font-medium text-xl shrink-0">--</div>
           <button class="text-sm font-semibold text-signal hover:underline">Change Photo</button>
         </div>
         <form id="profileForm" onsubmit="return false">
@@ -103,7 +103,7 @@
 
       <!-- Change Password -->
       <div class="neu-card p-6 mb-5">
-        <h2 class="font-display font-bold text-lg mb-5">Change Password</h2>
+        <h2 class="font-display font-medium text-lg mb-5">Change Password</h2>
         <form id="passwordForm" onsubmit="return false">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -126,7 +126,7 @@
 
       <!-- Notification Preferences -->
       <div class="neu-card p-6 mb-5">
-        <h2 class="font-display font-bold text-lg mb-5">Notification Preferences</h2>
+        <h2 class="font-display font-medium text-lg mb-5">Notification Preferences</h2>
         <div class="flex flex-col gap-5">
           <label class="flex items-center gap-4 cursor-pointer">
             <input type="checkbox" class="toggle-input hidden" checked>
@@ -154,7 +154,7 @@
 
       <!-- Danger Zone -->
       <div class="neu-card p-6 border-2 border-clay/30">
-        <h2 class="font-display font-bold text-lg text-clay mb-1">Danger Zone</h2>
+        <h2 class="font-display font-medium text-lg text-clay mb-1">Danger Zone</h2>
         <p class="text-sm text-ink/50 dark:text-paper/50 mb-5">Permanently delete your admin account and all associated data</p>
         <button type="button" onclick="openDeleteModal()" class="px-6 py-2.5 rounded-xl font-semibold text-sm text-white bg-clay hover:bg-clay/90 transition-colors">Delete Account</button>
       </div>
