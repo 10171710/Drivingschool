@@ -67,6 +67,10 @@
       </nav>
 
       <div class="flex items-center gap-2">
+        <button data-theme-toggle aria-pressed="false" class="w-9 h-9 grid place-items-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-sm hover:bg-paper/10 text-paper transition-colors" aria-label="Toggle dark mode">
+          ${sunIcon()}${moonIcon()}
+        </button>
+        <button data-dir-toggle class="w-9 h-9 grid place-items-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-sm hover:bg-paper/10 text-paper transition-colors" aria-label="Toggle Arabic/RTL layout"><span class="text-[10px] font-bold tracking-wide">RTL</span></button>
         <a href="login.html" class="hidden md:inline-flex items-center gap-1.5 bg-signal hover:bg-signal-600 text-ink font-semibold text-sm px-4 py-2.5 rounded-full transition-colors">Log in</a>
         <a href="contact.html" class="hidden sm:inline-flex items-center gap-1.5 bg-signal hover:bg-signal-600 text-ink font-semibold text-sm px-4 py-2.5 rounded-full transition-colors">Book a Lesson</a>
         <button data-menu-toggle aria-expanded="false" class="lg:hidden w-9 h-9 grid place-items-center rounded-full border border-paper/20 text-paper" aria-label="Open menu">
@@ -87,12 +91,6 @@
       <a href="student-dashboard.html" class="block font-semibold text-paper/80 hover:text-paper">Student login</a>
     </div>
   </header>
-  <div class="fixed top-16 right-4 z-50 lg:top-4 flex items-center gap-2 [dir=rtl_&]:right-auto [dir=rtl_&]:left-4">
-    <button data-theme-toggle aria-pressed="false" class="w-9 h-9 grid place-items-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-sm hover:bg-paper/10 text-paper transition-colors" aria-label="Toggle dark mode">
-      ${sunIcon()}${moonIcon()}
-    </button>
-    <button data-dir-toggle class="w-9 h-9 grid place-items-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-sm hover:bg-paper/10 text-paper transition-colors" aria-label="Toggle Arabic/RTL layout"><span class="text-[10px] font-bold tracking-wide">RTL</span></button>
-  </div>
   <div class="content-particles" aria-hidden="true">
     <span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span>
@@ -112,7 +110,7 @@
         <div class="flex flex-wrap gap-3 mt-5">
           <a href="#" aria-label="Facebook" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">facebook</a>
           <a href="#" aria-label="Instagram" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">instagram</a>
-          <a href="#" aria-label="Twitter" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">twitter</a>
+          <a href="#" aria-label="X" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">X</a>
           <a href="#" aria-label="YouTube" class="px-4 h-9 rounded-full border border-paper/20 grid items-center hover:bg-paper/10 text-paper transition-colors text-xs font-semibold">youtube</a>
         </div>
       </div>

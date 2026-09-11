@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&display=swap');
 
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
 body { font-feature-settings: "cv11"; overflow-x: hidden; touch-action: pan-y; }
+main { position: relative; z-index: 1; }
 
 @keyframes bg-orbit-1 {
   0%, 100% { transform: translate(0, 0); }
