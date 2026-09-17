@@ -39,7 +39,7 @@
   const homeActive = isActive('index.html') || isActive('home-driving-school.html');
 
   const html = `
-  <header class="fixed top-0 left-0 right-0 z-40 bg-ink/90 backdrop-blur border-b border-paper/10 transition-shadow">
+  <header class="fixed top-0 left-0 right-0 z-40 bg-ink backdrop-blur border-b border-paper/10 transition-shadow" style="background:#1a1d23;">
     <div class="max-w-7xl mx-auto px-5 lg:px-8 flex items-center justify-between py-2">
       <a href="index.html" class="flex items-center gap-2 shrink-0">
         <span class="w-8 h-8 rounded-md bg-white grid place-items-center">
@@ -169,7 +169,7 @@
 
   function mount() {
     const navEl = document.getElementById('navbar-mount');
-    if (navEl) navEl.innerHTML = '<div class="h-[56px]"></div>' + html;
+    if (navEl) navEl.innerHTML = '<div class="h-[52px] bg-ink" style="background:#1a1d23;"></div>' + html;
 
     const footerEl = document.getElementById('footer-mount');
     if (footerEl) footerEl.innerHTML = footerHtml;
