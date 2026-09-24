@@ -59,11 +59,11 @@
   /* ── build sidebar ── */
   function renderSidebar(el) {
     el.innerHTML =
-      '<div class="dash-sidebar-brand">'
+      '<a href="../../index.html" class="dash-sidebar-brand" style="text-decoration:none;color:inherit">'
         + '<span class="w-10 h-10 rounded-lg bg-white grid place-items-center shrink-0"><span class="w-3 h-3 rounded-full bg-signal"></span></span>'
         + '<div><span class="font-display font-bold text-lg text-white leading-none">RouteWise</span>'
         + '<span class="text-[10px] text-white/40 font-mono uppercase tracking-wider">Admin</span></div>'
-      + '</div>'
+      + '</a>'
       + '<nav class="dash-sidebar-nav">' + buildNavItems() + '</nav>'
       + '<div class="dash-sidebar-footer">'
         + '<a href="../../index.html"><span class="nav-ico">' + ICO.home + '</span>Back to site</a>'
