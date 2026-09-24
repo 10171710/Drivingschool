@@ -35,6 +35,11 @@
       Invalid email or password. Please try again.
     </div>
 
+    <div id="login-success" class="hidden mb-5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 p-4 text-sm text-emerald-700 dark:text-emerald-400 font-medium flex items-center gap-2.5">
+      <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span id="login-success-text">Login successful! Welcome back.</span>
+    </div>
+
     <form id="login-form" class="space-y-5">
       <div>
         <label for="l-email" class="block text-sm font-semibold mb-1.5 dark:text-paper">Email</label>
@@ -105,8 +110,18 @@
 <script src="assets/js/app.js"></script>
 <script>
 (function() {
+  // Ensure default demo student exists
+  var defaultUsers = [
+    { email: 'student@routewise.com', password: 'password123', name: 'Student User', role: 'student' }
+  ];
+  if (!localStorage.getItem('rw_users')) {
+    localStorage.setItem('rw_users', JSON.stringify(defaultUsers));
+  }
+
   var form = document.getElementById('login-form');
   var error = document.getElementById('login-error');
+  var successBox = document.getElementById('login-success');
+  var successText = document.getElementById('login-success-text');
   var forgotLink = document.getElementById('forgot-password-link');
   var fpModal = document.getElementById('forgot-password-modal');
   var fpContent = document.getElementById('fp-modal-content');
@@ -116,6 +131,17 @@
   var fpEmail = document.getElementById('fp-email');
   var fpError = document.getElementById('fp-error');
   var fpHint = document.getElementById('fp-hint');
+
+  function triggerSuccess(msg) {
+    if (error) error.classList.add('hidden');
+    if (successBox && successText) {
+      successText.textContent = msg;
+      successBox.classList.remove('hidden');
+    }
+    if (typeof showToast === 'function') {
+      showToast(msg, 'success');
+    }
+  }
 
   // Toggle forgot password modal
   forgotLink.addEventListener('click', function(e) {
@@ -209,16 +235,15 @@
         window.removeEventListener('message', handler);
         var users = JSON.parse(localStorage.getItem('rw_users') || '[]');
         var existing = users.find(function(u) { return u.email === e.data.email; });
+        var userName = existing ? existing.name : 'Facebook User';
         if (existing) {
           localStorage.setItem('rw_session', JSON.stringify({ email: existing.email, name: existing.name, role: 'student' }));
-          showToast('Logged in with Facebook: ' + existing.name, 'success');
         } else {
           users.push({ email: e.data.email, password: 'fb123', name: 'Facebook User', role: 'student' });
           localStorage.setItem('rw_users', JSON.stringify(users));
           localStorage.setItem('rw_session', JSON.stringify({ email: e.data.email, name: 'Facebook User', role: 'student' }));
-          showToast('Facebook account created and logged in', 'success');
         }
-        setTimeout(function() { window.location.href = 'dashboard/student/student-overview.html'; }, 1500);
+        triggerSuccess('Login successful! Welcome back, ' + userName + '.');
       }
     });
   }
@@ -260,16 +285,15 @@
         window.removeEventListener('message', handler);
         var users = JSON.parse(localStorage.getItem('rw_users') || '[]');
         var existing = users.find(function(u) { return u.email === e.data.email; });
+        var userName = existing ? existing.name : 'Google User';
         if (existing) {
           localStorage.setItem('rw_session', JSON.stringify({ email: existing.email, name: existing.name, role: 'student' }));
-          showToast('Logged in with Google: ' + existing.name, 'success');
         } else {
           users.push({ email: e.data.email, password: 'google123', name: 'Google User', role: 'student' });
           localStorage.setItem('rw_users', JSON.stringify(users));
           localStorage.setItem('rw_session', JSON.stringify({ email: e.data.email, name: 'Google User', role: 'student' }));
-          showToast('Google account created and logged in', 'success');
         }
-        setTimeout(function() { window.location.href = 'dashboard/student/student-overview.html'; }, 1500);
+        triggerSuccess('Login successful! Welcome back, ' + userName + '.');
       }
     });
   }
@@ -277,7 +301,7 @@
   // Apple OAuth popup helper
   function openApplePopup() {
     var popup = window.open('', 'apple_login', 'width=500,height=600,top=100,left=100,scrollbars=no,resizable=no');
-    if (!popup) { showToast('Please allow popups for Apple login', 'error'); return; }
+    if (!popup) { if (typeof showToast === 'function') showToast('Please allow popups for Apple login', 'error'); return; }
     popup.document.write('<!DOCTYPE html><html><head><title>Sign in with Apple</title>' +
       '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">' +
       '<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:DM Sans,sans-serif;background:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}.a-box{width:400px;padding:48px 40px;text-align:center}.a-logo{width:60px;height:60px;background:#000;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#fff}.a-logo svg{width:26px;height:26px;fill:currentColor}.a-title{font-size:22px;font-weight:700;color:#161617;margin-bottom:6px}.a-sub{font-size:15px;color:#5f6368;margin-bottom:28px}.a-input{width:100%;padding:13px 15px;border:1px solid #d2d2d7;border-radius:12px;font-size:16px;color:#161617;outline:none;transition:border .2s;margin-bottom:20px}.a-input:focus{border-color:#0071e3;box-shadow:0 1px 6px rgba(0,113,227,.2)}.a-btn{width:100%;padding:12px;background:#161617;color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s}.a-btn:hover{background:#000}</style></head><body>' +
@@ -302,16 +326,15 @@
         window.removeEventListener('message', handler);
         var users = JSON.parse(localStorage.getItem('rw_users') || '[]');
         var existing = users.find(function(u) { return u.email === e.data.email; });
+        var userName = existing ? existing.name : 'Apple User';
         if (existing) {
           localStorage.setItem('rw_session', JSON.stringify({ email: existing.email, name: existing.name, role: 'student' }));
-          showToast('Logged in with Apple: ' + existing.name, 'success');
         } else {
           users.push({ email: e.data.email, password: 'apple123', name: 'Apple User', role: 'student' });
           localStorage.setItem('rw_users', JSON.stringify(users));
           localStorage.setItem('rw_session', JSON.stringify({ email: e.data.email, name: 'Apple User', role: 'student' }));
-          showToast('Apple account created and logged in', 'success');
         }
-        setTimeout(function() { window.location.href = 'dashboard/student/student-overview.html'; }, 1500);
+        triggerSuccess('Login successful! Welcome back, ' + userName + '.');
       }
     });
   }
@@ -331,10 +354,11 @@
     openApplePopup();
   });
 
-  // Original login form handler
+  // Original login form handler — displays success without redirecting
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    error.classList.add('hidden');
+    if (error) error.classList.add('hidden');
+    if (successBox) successBox.classList.add('hidden');
 
     var rememberChecked = form.querySelector('input[type="checkbox"]').checked;
 
@@ -356,7 +380,7 @@
     }
 
     localStorage.setItem('rw_session', JSON.stringify({ email: user.email, name: user.name, role: user.role }));
-    window.location.href = 'dashboard/student/student-overview.html';
+    triggerSuccess('Login successful! Welcome back, ' + user.name + '.');
   });
 })();
 </script>

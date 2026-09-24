@@ -241,7 +241,7 @@
       if (e.target.closest('#rw-admin-logout')) {
         e.preventDefault();
         localStorage.removeItem('rw_session');
-        window.location.href = '../../login.html';
+        window.location.href = '../../index.html';
       }
     });
   }

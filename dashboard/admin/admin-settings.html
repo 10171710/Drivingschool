@@ -241,7 +241,7 @@
       var idx = admins.findIndex(function (a) { return a.email === session.email; });
       if (idx >= 0) { admins.splice(idx, 1); localStorage.setItem('rw_admins', JSON.stringify(admins)); }
       localStorage.removeItem('rw_session');
-      window.location.href = '../../admin-login.html';
+      window.location.href = '../../index.html';
     };
 
     window.savePreferences = function () { showPopup('success', 'Preferences saved'); };

@@ -66,13 +66,13 @@
         ${link('contact.html', 'Contact')}
       </nav>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2.5">
         <button data-theme-toggle aria-pressed="false" class="w-9 h-9 grid place-items-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-sm hover:bg-paper/10 text-paper transition-colors" aria-label="Toggle dark mode">
           ${sunIcon()}${moonIcon()}
         </button>
         <button data-dir-toggle class="w-9 h-9 grid place-items-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-sm hover:bg-paper/10 text-paper transition-colors" aria-label="Toggle Arabic/RTL layout"><span class="text-[10px] font-bold tracking-wide">RTL</span></button>
-        <a href="login.html" class="hidden md:inline-flex items-center gap-1.5 bg-signal hover:bg-signal-600 text-ink font-semibold text-sm px-4 py-2.5 rounded-full transition-colors">Log in</a>
-        <a href="contact.html" class="hidden sm:inline-flex items-center gap-1.5 bg-signal hover:bg-signal-600 text-ink font-semibold text-sm px-4 py-2.5 rounded-full transition-colors">Book a Lesson</a>
+        <a href="login.html" class="hidden sm:inline-flex items-center gap-1.5 border border-paper/30 hover:border-signal text-paper hover:text-signal font-semibold text-sm px-4 py-2 rounded-full transition-colors hover:bg-paper/10">Login</a>
+        <a href="student-dashboard.html" class="hidden sm:inline-flex items-center gap-1.5 bg-signal hover:bg-signal-600 text-ink font-semibold text-sm px-4 py-2 rounded-full transition-colors shadow-sm">Dashboard</a>
         <button data-menu-toggle aria-expanded="false" class="lg:hidden w-9 h-9 grid place-items-center rounded-full border border-paper/20 text-paper" aria-label="Open menu">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
@@ -88,7 +88,10 @@
       ${mobileLink('blog.html', 'Blog')}
       ${mobileLink('pricing.html', 'Pricing')}
       ${mobileLink('contact.html', 'Contact')}
-      <a href="student-dashboard.html" class="block font-semibold text-paper/80 hover:text-paper">Student login</a>
+      <div class="pt-3 border-t border-paper/10 flex flex-col gap-2">
+        <a href="login.html" class="block text-center font-semibold text-paper border border-paper/30 hover:border-signal py-2.5 rounded-full transition-colors">Login</a>
+        <a href="student-dashboard.html" class="block text-center font-semibold bg-signal hover:bg-signal-600 text-ink py-2.5 rounded-full transition-colors">Dashboard</a>
+      </div>
     </div>
   </header>
   <div class="content-particles" aria-hidden="true">

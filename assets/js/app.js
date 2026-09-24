@@ -438,4 +438,40 @@
     modal.querySelector('#legal-body').innerHTML = content.body;
     modal.classList.remove('hidden');
   });
+
+  // Global Toast notification utility
+  function showToast(message, type) {
+    type = type || 'success';
+    var toastContainer = document.getElementById('global-toast-container');
+    if (!toastContainer) {
+      toastContainer = document.createElement('div');
+      toastContainer.id = 'global-toast-container';
+      toastContainer.className = 'fixed bottom-6 right-6 z-[99999] flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4';
+      document.body.appendChild(toastContainer);
+    }
+
+    var toast = document.createElement('div');
+    var isSuccess = type === 'success';
+    toast.className = 'pointer-events-auto flex items-center gap-3 p-4 rounded-xl shadow-2xl text-sm font-medium transition-all duration-300 transform translate-y-4 opacity-0 ' +
+      (isSuccess ? 'bg-ink border border-emerald-500/40 text-paper' : 'bg-ink border border-clay/40 text-paper');
+    
+    var icon = isSuccess
+      ? '<span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 grid place-items-center shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>'
+      : '<span class="w-7 h-7 rounded-full bg-clay/20 text-clay grid place-items-center shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></span>';
+
+    toast.innerHTML = icon + '<span class="flex-1">' + message + '</span>';
+    toastContainer.appendChild(toast);
+
+    requestAnimationFrame(function() {
+      toast.classList.remove('translate-y-4', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+    });
+
+    setTimeout(function() {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-4', 'opacity-0');
+      setTimeout(function() { toast.remove(); }, 300);
+    }, 4000);
+  }
+  window.showToast = showToast;
 })();
